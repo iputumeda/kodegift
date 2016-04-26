@@ -1,46 +1,45 @@
 package id.co.meda.survey;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 
-public class UserActivity extends Activity {
+public class RegisterActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_register);
 
-
-        TextView register = (TextView) findViewById(R.id.link_to_register);
-        register.setOnClickListener(new View.OnClickListener() {
+        Button clickButton = (Button) findViewById(R.id.saveBtn);
+        clickButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                registerView();
+                saveData();
             }
         });
+
+
+
+
     }
 
-    private void registerView(){
+    private void saveData(){
 
-        Intent i = new Intent(UserActivity.this, RegisterActivity.class);
-        startActivity(i);
+
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_register, menu);
         return true;
     }
 
