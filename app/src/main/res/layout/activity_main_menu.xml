@@ -8,17 +8,21 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="#e83c44"
     tools:context="id.co.meda.survey.MainMenuActivity">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NAMA LENGKAP"
+        android:text="User Full Name"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:textColor="#ffff"
         android:gravity="center_horizontal"
         android:textAppearance="?android:textAppearanceLarge"
         android:layout_marginBottom="10dp"
-        android:id="@+id/nama_tv_amu"/>
+        android:id="@+id/name_tv_amm"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -26,25 +30,26 @@
         android:textAppearance="?android:textAppearanceSmall"
         android:gravity="center_horizontal"
         android:text="email@gmail.com"
-        android:id="@+id/email_tv_amu"
+        android:textColor="#ffff"
+        android:id="@+id/email_tv_amm"
         android:layout_marginBottom="5dp"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Survay"
+        android:text="@string/survey"
         android:onClick="onClickSurvey"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Survay Saya"
+        android:text="@string/my_survey"
         android:onClick="onClickMySurvey"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Voucher Saya"
+        android:text="@string/my_voucher"
         android:onClick="onClickMyVoucher"/>
 
 </LinearLayout>

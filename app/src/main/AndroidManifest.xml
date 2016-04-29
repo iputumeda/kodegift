@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="id.co.meda.survey"
-    >
+    package="id.co.meda.survey">
 
     <application
-        android:name="id.co.meda.survey.controller.AppController"
+        android:name=".controller.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-
+        android:theme="@style/AppTheme">
         <uses-permission android:name="android.permission.INTERNET" />
+
         <activity
             android:name=".FlashScreenActivity"
             android:label="@string/app_name"
@@ -25,8 +24,13 @@
         <activity
             android:name=".UserActivity"
             android:label="Main"
-            android:theme="@android:style/Theme.Black.NoTitleBar">
-        </activity>
+            android:theme="@android:style/Theme.Black.NoTitleBar" />
+        <activity android:name=".MainMenuActivity" />
+        <activity android:name=".SurveyActivity" />
+        <activity android:name=".MySurveyActivity" />
+        <activity android:name=".MyVoucherActivity" />
+        <activity android:name=".SurveyDetailActivity" />
+        <activity android:name=".ChangeProfileActivity" />
     </application>
 
 </manifest>

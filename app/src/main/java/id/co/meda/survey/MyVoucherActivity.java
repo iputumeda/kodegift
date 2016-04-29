@@ -11,6 +11,7 @@ import id.co.meda.survey.database.VoucherDatabase;
 
 public class MyVoucherActivity extends ListActivity {
 
+    private VoucherDatabase database;
     ListView listView;
 
     @Override
@@ -18,12 +19,18 @@ public class MyVoucherActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_voucher);
         listView = getListView();
-        VoucherDatabase database = new VoucherDatabase(MyVoucherActivity.this);
+        database = new VoucherDatabase(MyVoucherActivity.this);
         Cursor cursor = database.queryVoucher();
         CursorAdapter adapter = new SimpleCursorAdapter(MyVoucherActivity.this, R.layout.item_voucher, cursor,
                 new String[]{VoucherDatabase.VoucherDatabaseHelper.NAME_COLUMN,VoucherDatabase.VoucherDatabaseHelper.VOUCHER_COLUMN},
-                new int[]{R.id.productName_tv_iv},0);
+                new int[]{R.id.productName_tv_iv, R.id.voucher_tv_iv},0);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        database.close();
     }
 
 }

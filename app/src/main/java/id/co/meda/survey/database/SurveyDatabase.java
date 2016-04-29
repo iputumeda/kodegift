@@ -56,20 +56,29 @@ public class SurveyDatabase {
                         SurveyDatabaseHelper.PHOTO_COLUMN}, null, null, null, null, null);
     }
 
+    public Cursor queryProducts(long id){
+        return database.query(SurveyDatabaseHelper.TABLE_NAME,
+                new String[]{"_id",SurveyDatabaseHelper.NAME_COLUMN,
+                        SurveyDatabaseHelper.CATEGORY_COLUMN,
+                        SurveyDatabaseHelper.DESCRIPTION_COLUMN,
+                        SurveyDatabaseHelper.DESCRIPTION_COLUMN,
+                        SurveyDatabaseHelper.PHOTO_COLUMN}, "_id = ?", new String[]{id+""}, null, null, null);
+    }
+
+    public void close(){
+        database.close();
+    }
+
     public class SurveyDatabaseHelper extends SQLiteOpenHelper{
 
-        private static final String TABLE_NAME = "SURVEY TABLE";
+        private static final String TABLE_NAME = "SURVEY_TABLE";
         public static final String NAME_COLUMN = "NAME";
         public static final String CATEGORY_COLUMN = "CATEGORY";
         public static final String DESCRIPTION_COLUMN = "DESCRIPTION";
         public static final String PHOTO_COLUMN = "PHOTO";
-        private static final String DATABASE_NAME = "Survey Database";
+        private static final String DATABASE_NAME = "Survey_Database";
         private static final int DATABASE_VERSION = 1;
-        private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ""+NAME_COLUMN+" TEXT, " +
-                ""+CATEGORY_COLUMN+" TEXT, " +
-                ""+DESCRIPTION_COLUMN+" TEXT, " +
-                ""+PHOTO_COLUMN+" TEXT);";
+        private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME_COLUMN+" TEXT, "+CATEGORY_COLUMN+" TEXT, "+DESCRIPTION_COLUMN+" TEXT, "+PHOTO_COLUMN+" TEXT);";
 
         public SurveyDatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);

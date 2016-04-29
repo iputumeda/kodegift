@@ -8,43 +8,60 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="#e83c44"
     tools:context="id.co.meda.survey.ChangeProfileActivity">
 
     <TextView
+        android:textColor="#ffff"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ubah Profile"
+        android:text="@string/edit_profile"
         android:gravity="center_horizontal"
         android:textAppearance="?android:textAppearanceLarge"
         android:textSize="30sp"
         android:layout_marginBottom="5dp"/>
 
     <EditText
+        android:textColor="#dfdfdf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/userFullName_tv_acp"
         android:layout_marginBottom="5dp"/>
 
     <EditText
+        android:textColor="#dfdfdf"
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/userEmail_tv_acp"
-        android:inputType="none"/>
+        android:inputType="textNoSuggestions"/>
+
 
     <EditText
+        android:textColorHint="#bdbdbd"
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter new password"
+        android:hint="@string/enter_old_password"
+        android:inputType="textPassword"
+        android:id="@+id/userOldPassword_tv_acp"/>
+
+    <EditText
+        android:textColorHint="#bdbdbd"
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_new_password"
         android:inputType="textPassword"
         android:id="@+id/userPassword_tv_acp"/>
 
     <EditText
+        android:textColorHint="#bdbdbd"
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Re-Enter new password"
+        android:hint="@string/re_enter_new_password"
         android:inputType="textPassword"
         android:id="@+id/userRePassword_tv_acp"/>
 
@@ -52,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Save Profile"
+        android:text="@string/save_profile"
         android:textAllCaps="false"
-        android:id="@+id/saveProfile_b_acp"/>
+        android:onClick="onClickSaveProfile"/>
 </LinearLayout>

@@ -6,13 +6,25 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
 
 public class MainMenuActivity extends AppCompatActivity {
+
+    TextView userFullName;
+    TextView userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        userFullName = (TextView) findViewById(R.id.name_tv_amm);
+        userEmail = (TextView) findViewById(R.id.email_tv_amm);
+
+        //TODO mnyetel userEmail dari database server yang berisikan email user
+        //TODO menyetel userFullName dari database server yang brisikan nama lengkap user
+
     }
 
     public void onClickSurvey(View view) {

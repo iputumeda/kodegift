@@ -45,12 +45,16 @@ public class VoucherDatabase {
         return database.query(VoucherDatabaseHelper.TABLE_NAME, new String[]{"_id",VoucherDatabaseHelper.NAME_COLUMN, VoucherDatabaseHelper.VOUCHER_COLUMN}, null, null, null, null, VoucherDatabaseHelper.NAME_COLUMN);
     }
 
+    public void close(){
+        database.close();
+    }
+
     public class VoucherDatabaseHelper extends SQLiteOpenHelper {
 
-        private static final String TABLE_NAME = "VOUCHER TABLE";
+        private static final String TABLE_NAME = "VOUCHER_TABLE";
         public static final String NAME_COLUMN = "NAME";
         public static final String VOUCHER_COLUMN = "VOUCHER";
-        private static final String DATABASE_NAME = "Voucher Database";
+        private static final String DATABASE_NAME = "Voucher_Database";
         private static final int DATABASE_VERSION = 1;
         private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME_COLUMN+" TEXT, "+VOUCHER_COLUMN+" INTEGER);";
 
