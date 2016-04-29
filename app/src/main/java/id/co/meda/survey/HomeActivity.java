@@ -1,6 +1,5 @@
 package id.co.meda.survey;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,40 +7,59 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+
+import id.co.meda.survey.helper.LocalDBHandler;
+import id.co.meda.survey.helper.SessionManager;
 
 
-public class UserActivity extends Activity {
+public class HomeActivity extends ActionBarActivity {
 
+    private LocalDBHandler db;
+    private SessionManager session;
+    private Button btnLogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_home);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
 
+        // SqLite database handler
+        db = new LocalDBHandler(getApplicationContext());
+        // session manager
+        session = new SessionManager(getApplicationContext());
 
-        TextView register = (TextView) findViewById(R.id.link_to_register);
-        register.setOnClickListener(new View.OnClickListener() {
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
+
+        // Logout button click event
+        btnLogout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-                registerView();
+                logoutUser();
             }
         });
-    }
-
-    private void registerView(){
-
-        Intent i = new Intent(UserActivity.this, RegisterActivity.class);
-        startActivity(i);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
+
+
+    }
+
+    private void logoutUser(){
+        session.setLogin(false);
+
+        db.deleteUsers();
+
+        // Launching the login activity
+        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
