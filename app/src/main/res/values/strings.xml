@@ -4,6 +4,24 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_flash_screen">FlashScreenActivity</string>
-    <string name="title_activity_register">RegisterActivity</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="ubah_profile">Ubah Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="enter_old_password">Enter old password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="re_enter_new_password">Re-Enter new password</string>
+    <string name="save_profile">Save Profile</string>
+    <string name="your_old_password_is_incorrect">your old password is incorrect</string>
+    <string name="please_fill_all_box">please fill all box</string>
+    <string name="password_not_match_with_re_password">password not match with re-password</string>
+    <string name="profile_has_been_modified">profile has been modified</string>
+    <string name="your_voucher_is_empty">your voucher is empty</string>
+    <string name="your_survey_is_empty">your survey is empty</string>
+    <string name="survey">Survey</string>
+    <string name="my_survey">My Survey</string>
+    <string name="my_voucher">My Voucher</string>
+    <string name="enter_product_s_name">Enter product\'s name</string>
+    <string name="enter_product_s_category">Enter product\'s category</string>
+    <string name="enter_product_s_description">Enter product\'s description</string>
+    <string name="take_product_s_photo">Take Product\'s Photo</string>
+    <string name="take_product_s_barcode">Take product\'s Barcode</string>
 </resources>
