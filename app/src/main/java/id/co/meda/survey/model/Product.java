@@ -1,9 +1,11 @@
 package id.co.meda.survey.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Faris on 27/04/2016.
  */
-public class Product {
+public class Product implements Serializable{
 
     private String name;
     private String category;
