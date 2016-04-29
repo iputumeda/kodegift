@@ -2,7 +2,6 @@ package id.co.meda.survey;
 
 import android.app.ListActivity;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
