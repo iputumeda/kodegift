@@ -22,7 +22,7 @@ public class MyVoucherActivity extends ListActivity {
         Cursor cursor = database.queryVoucher();
         CursorAdapter adapter = new SimpleCursorAdapter(MyVoucherActivity.this, R.layout.item_voucher, cursor,
                 new String[]{VoucherDatabase.VoucherDatabaseHelper.NAME_COLUMN,VoucherDatabase.VoucherDatabaseHelper.VOUCHER_COLUMN},
-                new int[]{R.id.productName_tv_iv},R.id.voucher_tv_iv);
+                new int[]{R.id.productName_tv_iv},0);
         listView.setAdapter(adapter);
     }
 
