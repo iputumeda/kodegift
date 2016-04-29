@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TextView
+        android:textSize="25sp"
+        android:text="Product Name"
+        android:layout_toLeftOf="@+id/voucher_tv_iv"
+        android:layout_alignParentLeft="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/productName_tv_iv"/>
+    <TextView
+        android:textSize="25sp"
+        android:text="voucher"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/voucher_tv_iv"/>
+    <ImageView
+        android:layout_alignRight="@+id/voucher_tv_iv"
+        android:layout_alignLeft="@id/productName_tv_iv"
+        android:layout_below="@+id/productName_tv_iv"
+        android:background="#dfdfdf"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+</RelativeLayout>
