@@ -23,9 +23,9 @@ public class SurveyDatabase {
 
         ContentValues values = new ContentValues();
         values.put(SurveyDatabaseHelper.NAME_COLUMN, product.getName());
-        values.put(SurveyDatabaseHelper.CATEGORY_COLUMN, product.getName());
-        values.put(SurveyDatabaseHelper.DESCRIPTION_COLUMN, product.getName());
-        values.put(SurveyDatabaseHelper.CATEGORY_COLUMN, product.getName());
+        values.put(SurveyDatabaseHelper.CATEGORY_COLUMN, product.getCategory());
+        values.put(SurveyDatabaseHelper.DESCRIPTION_COLUMN, product.getDescription());
+        values.put(SurveyDatabaseHelper.PHOTO_COLUMN, product.getPhoto());
         //TODO KURANG BARCODE
         return database.insert(SurveyDatabaseHelper.TABLE_NAME, null, values);
 
