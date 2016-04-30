@@ -67,7 +67,7 @@ public class SurveyDetailActivity extends AppCompatActivity {
         Product product = new Product(name,category,description,photo,new Barcode());
 
         productTitle.setText(product.getName());
-        productPhoto.setImageDrawable(Drawable.createFromPath(getFilePath(product.getPhoto())));
+//        productPhoto.setImageDrawable(Drawable.createFromPath(getFilePath(product.getPhoto())));
         productCategory.setText(product.getCategory());
         productDescription.setText(product.getDescription());
     }
