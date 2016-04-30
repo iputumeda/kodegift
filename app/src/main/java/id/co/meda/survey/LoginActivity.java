@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 
 
-public class UserActivity extends Activity {
+public class LoginActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserActivity"
+            android:name=".LoginActivity"
             android:label="Main"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity android:name=".MainMenuActivity" />
