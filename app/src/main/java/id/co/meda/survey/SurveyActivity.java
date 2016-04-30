@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import id.co.meda.survey.database.SurveyDatabase;
 import id.co.meda.survey.database.VoucherDatabase;
+import id.co.meda.survey.model.Product;
 import id.co.meda.survey.model.Voucher;
 
 public class SurveyActivity extends AppCompatActivity {
@@ -14,7 +16,8 @@ public class SurveyActivity extends AppCompatActivity {
     EditText productName;
     EditText productCategory;
     EditText productDescription;
-    VoucherDatabase database;
+    SurveyDatabase databaseSurvey;
+    VoucherDatabase databaseVoucher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,8 @@ public class SurveyActivity extends AppCompatActivity {
         productName = (EditText) findViewById(R.id.productName_et_as);
         productCategory = (EditText) findViewById(R.id.productCategory_et_as);
         productDescription = (EditText) findViewById(R.id.productDescription_et_as);
-        database = new VoucherDatabase(this);
+        databaseSurvey = new SurveyDatabase(this);
+        databaseVoucher = new VoucherDatabase(this);
 
     }
 
@@ -46,11 +50,26 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     public void onClickSurveyProduct(View view) {
+
+        String productNameString = productName.getText().toString();
+        String productCategoryString = productCategory.getText().toString();
+        String productDescriptionString = productDescription.getText().toString();
+
+        Product product = new Product(productNameString, productCategoryString, productDescriptionString,null,null);
+        databaseSurvey.insertProduct(product);
+
+        Voucher voucher = new Voucher(productNameString, 100);
+        databaseVoucher.insertVoucher(voucher);
+
+        Toast.makeText(this, "survey is saved", Toast.LENGTH_SHORT).show();
+        finish();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        database.close();
+        databaseSurvey.close();
+        databaseVoucher.close();
     }
 }
