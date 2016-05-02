@@ -1,6 +1,8 @@
 package id.co.meda.survey;
 
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,21 +62,19 @@ public class SurveyDetailActivity extends AppCompatActivity {
         String description = cursor.getString(
                 cursor.getColumnIndex(SurveyDatabase.SurveyDatabaseHelper.DESCRIPTION_COLUMN)
         );
-        String photo = cursor.getString(
+        byte[] photo = cursor.getBlob(
                 cursor.getColumnIndex(SurveyDatabase.SurveyDatabaseHelper.PHOTO_COLUMN)
         );
 
-        Product product = new Product(name,category,description,photo,new Barcode());
+        productTitle.setText(name);
+        productPhoto.setImageBitmap(getImage(photo));
+        productCategory.setText(category);
+        productDescription.setText(description);
 
-        productTitle.setText(product.getName());
-//        productPhoto.setImageDrawable(Drawable.createFromPath(getFilePath(product.getPhoto())));
-        productCategory.setText(product.getCategory());
-        productDescription.setText(product.getDescription());
     }
 
-    public String getFilePath(String path){
-        File file = getFileStreamPath(path);
-        return file.toString();
+    private Bitmap getImage(byte[] imageDatabase){
+        return BitmapFactory.decodeByteArray(imageDatabase, 0, imageDatabase.length);
     }
 
     @Override
