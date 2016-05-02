@@ -21,8 +21,6 @@ public class SurveyDetailActivity extends AppCompatActivity {
     private static final String PRODUCT = "CURRENT PRODUCT";
     public static final String ID = "CURRENT_ID";
 
-    private SurveyDatabase database;
-
     TextView productTitle;
     ImageView productPhoto;
     TextView productCategory;
@@ -49,7 +47,7 @@ public class SurveyDetailActivity extends AppCompatActivity {
 
         long id = getIntent().getLongExtra(ID,0);
 
-        database = new SurveyDatabase(this);
+        SurveyDatabase database = new SurveyDatabase(this);
 
         Cursor cursor = database.queryProducts(id);
         cursor.moveToFirst();
@@ -71,15 +69,12 @@ public class SurveyDetailActivity extends AppCompatActivity {
         productCategory.setText(category);
         productDescription.setText(description);
 
+        cursor.close();
+        database.close();
+
     }
 
     private Bitmap getImage(byte[] imageDatabase){
         return BitmapFactory.decodeByteArray(imageDatabase, 0, imageDatabase.length);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        database.close();
     }
 }
