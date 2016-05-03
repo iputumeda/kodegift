@@ -59,9 +59,11 @@ public class MySurveyActivity extends ListActivity {
 
         @Override
         protected void onPostExecute(Cursor cursor) {
-            CursorAdapter adapter = new SimpleCursorAdapter(MySurveyActivity.this, R.layout.item_survey, cursor,
+            CursorAdapter adapter = new SimpleCursorAdapter(MySurveyActivity.this,
+                    R.layout.item_survey,
+                    cursor,
                     new String[]{SurveyDatabase.SurveyDatabaseHelper.NAME_COLUMN, SurveyDatabase.SurveyDatabaseHelper.CATEGORY_COLUMN},
-                    new int[]{R.id.productName_tv_is, R.id.productName_tv_is},0);
+                    new int[]{R.id.productName_tv_is, R.id.productCategory_tv_is},0);
             listView.setAdapter(adapter);
         }
     }
