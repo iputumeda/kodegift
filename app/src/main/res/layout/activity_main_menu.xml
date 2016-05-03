@@ -52,5 +52,14 @@
         android:text="@string/my_voucher"
         android:onClick="onClickMyVoucher"/>
 
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dip"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textSize="15dp" />
+
 </LinearLayout>
 
