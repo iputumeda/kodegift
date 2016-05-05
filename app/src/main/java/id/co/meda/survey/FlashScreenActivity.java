@@ -2,7 +2,6 @@ package id.co.meda.survey;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +20,7 @@ public class FlashScreenActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(FlashScreenActivity.this, UserActivity.class);
+                Intent i = new Intent(FlashScreenActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
             }

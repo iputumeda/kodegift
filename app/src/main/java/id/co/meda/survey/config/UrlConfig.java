@@ -5,6 +5,6 @@ package id.co.meda.survey.config;
  */
 public class UrlConfig {
 
-    public static String URL_LOGIN = "http://192.168.56.102/login.php";
-    public static String URL_REGISTRATION = "http://192.168.56.102/registration.php";
+    public static String URL_LOGIN = "http://192.168.100.10/login.php";
+    public static String URL_REGISTRATION = "http://192.168.100.10/registration.php";
 }
