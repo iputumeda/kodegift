@@ -3,13 +3,14 @@ package id.co.meda.survey;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.os.Handler;
 
 
 
-public class FlashScreenActivity extends Activity {
+public class FlashScreenActivity extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 4000;
 

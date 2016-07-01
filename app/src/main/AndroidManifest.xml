@@ -10,13 +10,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
-
         <activity
             android:name=".FlashScreenActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,8 +22,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="Main"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:label="Main" />
         <activity android:name=".MainMenuActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".RegisterActivity" />
