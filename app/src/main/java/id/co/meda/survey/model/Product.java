@@ -12,6 +12,7 @@ public class Product{
     private String description;
     private String photo;
     private Barcode barcode;
+    private int point;
 
     public Product(String name, String category, String description, String photo, Barcode barcode) {
         this.name = name;
@@ -19,6 +20,7 @@ public class Product{
         this.description = description;
         this.photo = photo;
         this.barcode = barcode;
+        this.point = 500;
     }
 
     public String getName() {
@@ -59,5 +61,13 @@ public class Product{
 
     public void setBarcode(Barcode barcode) {
         this.barcode = barcode;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
     }
 }

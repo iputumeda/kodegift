@@ -26,9 +26,9 @@ public class SurveyActivity extends AppCompatActivity {
     }
 
     public void init(){
-        productName = (EditText) findViewById(R.id.productName_et_as);
-        productCategory = (EditText) findViewById(R.id.productCategory_et_as);
-        productDescription = (EditText) findViewById(R.id.productDescription_et_as);
+        productName = (EditText) findViewById(R.id.product_name);
+        productCategory = (EditText) findViewById(R.id.product_category);
+        productDescription = (EditText) findViewById(R.id.product_description);
         database = new VoucherDatabase(this);
 
     }

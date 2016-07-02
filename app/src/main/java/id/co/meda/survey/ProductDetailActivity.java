@@ -8,13 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.File;
-import java.io.FileOutputStream;
 
 import id.co.meda.survey.database.SurveyDatabase;
 import id.co.meda.survey.model.Barcode;
 import id.co.meda.survey.model.Product;
 
-public class SurveyDetailActivity extends AppCompatActivity {
+public class ProductDetailActivity extends AppCompatActivity {
 
     private static final String PRODUCT = "CURRENT PRODUCT";
     public static final String ID = "CURRENT_ID";
@@ -29,7 +28,7 @@ public class SurveyDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_survey_detail);
+        setContentView(R.layout.activity_product_detail);
 
         initView();
         assessData();
@@ -37,10 +36,10 @@ public class SurveyDetailActivity extends AppCompatActivity {
     }
 
     public void initView(){
-        productTitle = (TextView) findViewById(R.id.productTitle_tv_asd);
-        productPhoto = (ImageView) findViewById(R.id.productPhoto_iv_asd);
-        productCategory = (TextView) findViewById(R.id.productCategory_tv_asd);
-        productDescription = (TextView) findViewById(R.id.productDescription_tv_asd);
+        productTitle = (TextView) findViewById(R.id.product_title);
+        productPhoto = (ImageView) findViewById(R.id.product_photo);
+        productCategory = (TextView) findViewById(R.id.product_category);
+        productDescription = (TextView) findViewById(R.id.product_description);
     }
 
     public void assessData(){
