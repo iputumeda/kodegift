@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="id.co.meda.survey.SurveyDetailActivity">
+    tools:context=".ProductDetailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,21 +20,21 @@
             android:text="Product Title"
             android:textAppearance="?android:textAppearanceLarge"
             android:layout_marginBottom="2dp"
-            android:id="@+id/productTitle_tv_asd"/>
+            android:id="@+id/product_title"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginBottom="2dp"
-            android:id="@+id/productPhoto_iv_asd"/>
+            android:id="@+id/product_photo"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
-            android:id="@+id/productCategory_tv_asd" />
+            android:id="@+id/product_category" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/productDescription_tv_asd" />
+            android:id="@+id/product_description" />
     </LinearLayout>
 
 </ScrollView>
