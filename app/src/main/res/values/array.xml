@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="labels1">
+        <item>Survey</item>
+        <item>My Survey</item>
+        <item>My Redeem Items</item>
+        <item>Cash Out History</item>
+    </string-array>
+    <string-array name="labels2">
+        <item>Help Center</item>
+        <item>Edit Profile</item>
+        <item>Setting</item>
+        <item>Logout</item>
+    </string-array>
+    <array name="imgSrcs1">
+        <item>R.drawable.survey</item>
+        <item>R.drawable.my_survey</item>
+        <item>R.drawable.my_redeem_items</item>
+        <item>R.drawable.cash_out_history</item>
+    </array>
+    <array name="imgSrcs2">
+        <item>R.drawable.help_center</item>
+        <item>R.drawable.edit_profile</item>
+        <item>R.drawable.setting</item>
+        <item>R.drawable.logout</item>
+    </array>
+</resources>
