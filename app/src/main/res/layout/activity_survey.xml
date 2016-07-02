@@ -7,7 +7,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#e83c44"
     tools:context=".SurveyActivity">
 
     <EditText
@@ -16,15 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_product_s_name"
-        android:id="@+id/productName_et_as"/>
+        android:id="@+id/product_name"/>
     <EditText
         android:textColorHint="#bdbdbd"
         android:textColor="#dfdfdf"
-        android:layout_below="@+id/productName_et_as"
+        android:layout_below="@+id/product_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_product_s_category"
-        android:id="@+id/productCategory_et_as"/>
+        android:id="@+id/product_category"/>
     <EditText
         android:textColorHint="#bdbdbd"
         android:textColor="#dfdfdf"
@@ -34,12 +33,12 @@
         android:layout_height="wrap_content"
         android:hint="@string/enter_product_s_description"
         android:gravity="top"
-        android:id="@+id/productDescription_et_as"/>
+        android:id="@+id/product_description"/>
     <Button
         android:layout_alignTop="@+id/photoProduct_b_as"
         android:layout_toRightOf="@+id/photoProduct_b_as"
-        android:layout_alignRight="@+id/survey_b_as"
-        android:layout_above="@+id/survey_b_as"
+        android:layout_alignRight="@+id/survey"
+        android:layout_above="@+id/survey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/take_product_s_barcode"
@@ -47,15 +46,15 @@
         android:onClick="onClickBarcodeProduct"/>
     <Button
         android:id="@+id/photoProduct_b_as"
-        android:layout_alignLeft="@+id/survey_b_as"
-        android:layout_above="@+id/survey_b_as"
+        android:layout_alignLeft="@+id/survey"
+        android:layout_above="@+id/survey"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         android:text="@string/take_product_s_photo"
         android:onClick="onClickPhotoProduct"/>
     <Button
-        android:id="@+id/survey_b_as"
+        android:id="@+id/survey"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

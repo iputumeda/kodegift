@@ -53,7 +53,7 @@ public class MyVoucherActivity extends ListActivity {
         protected void onPostExecute(Cursor cursor) {
             CursorAdapter adapter = new SimpleCursorAdapter(MyVoucherActivity.this, R.layout.item_voucher, cursor,
                     new String[]{VoucherDatabase.VoucherDatabaseHelper.NAME_COLUMN,VoucherDatabase.VoucherDatabaseHelper.VOUCHER_COLUMN},
-                    new int[]{R.id.productName_tv_iv, R.id.voucher_tv_iv},0);
+                    new int[]{R.id.product_name, R.id.voucher},0);
             listView.setAdapter(adapter);
         }
     }

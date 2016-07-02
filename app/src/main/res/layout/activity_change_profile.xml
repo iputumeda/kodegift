@@ -8,7 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="#e83c44"
     tools:context="id.co.meda.survey.ChangeProfileActivity">
 
     <TextView
