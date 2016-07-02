@@ -132,7 +132,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationDra
 
     @Override
     public void editProfile() {
-
+        startActivity(new Intent(this, EditProfileActivity.class));
     }
 
     @Override

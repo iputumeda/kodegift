@@ -39,8 +39,9 @@
             android:name=".ProductDetailActivity"
             android:label="Review Product" />
         <activity
-            android:name=".ChangeProfileActivity"
-            android:label="Edit Profile" />
+            android:name=".EditProfileActivity"
+            android:label="Edit Profile"
+            android:parentActivityName=".MainMenuActivity"/>
         <activity android:name=".CategoryProductsActivity"
             android:parentActivityName=".MainMenuActivity"></activity>
     </application>
