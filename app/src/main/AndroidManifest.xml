@@ -30,7 +30,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".SurveyActivity"
-            android:label="Survey" />
+            android:label="Survey"
+            android:parentActivityName=".MainMenuActivity"/>
         <activity
             android:name=".MySurveyActivity"
             android:label="My Survey" />

@@ -2,6 +2,7 @@ package id.co.meda.survey;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ public class SurveyActivity extends AppCompatActivity {
     EditText productCategory;
     EditText productDescription;
     VoucherDatabase database;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,9 @@ public class SurveyActivity extends AppCompatActivity {
         productCategory = (EditText) findViewById(R.id.product_category);
         productDescription = (EditText) findViewById(R.id.product_description);
         database = new VoucherDatabase(this);
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void onClickBarcodeProduct(View view) {

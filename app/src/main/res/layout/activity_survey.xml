@@ -1,64 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".SurveyActivity">
 
-    <EditText
-        android:textColorHint="#bdbdbd"
-        android:textColor="#dfdfdf"
+    <include layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_product_s_name"
-        android:id="@+id/product_name"/>
-    <EditText
-        android:textColorHint="#bdbdbd"
-        android:textColor="#dfdfdf"
-        android:layout_below="@+id/product_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/enter_product_s_category"
-        android:id="@+id/product_category"/>
-    <EditText
-        android:textColorHint="#bdbdbd"
-        android:textColor="#dfdfdf"
-        android:layout_above="@+id/photoProduct_b_as"
-        android:layout_below="@+id/productCategory_et_as"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/enter_product_s_description"
-        android:gravity="top"
-        android:id="@+id/product_description"/>
-    <Button
-        android:layout_alignTop="@+id/photoProduct_b_as"
-        android:layout_toRightOf="@+id/photoProduct_b_as"
-        android:layout_alignRight="@+id/survey"
-        android:layout_above="@+id/survey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/take_product_s_barcode"
-        android:textAllCaps="false"
-        android:onClick="onClickBarcodeProduct"/>
-    <Button
-        android:id="@+id/photoProduct_b_as"
-        android:layout_alignLeft="@+id/survey"
-        android:layout_above="@+id/survey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="@string/take_product_s_photo"
-        android:onClick="onClickPhotoProduct"/>
-    <Button
-        android:id="@+id/survey"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/survey"
-        android:onClick="onClickSurveyProduct"/>
+        android:id="@+id/toolbar"/>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Product Name"
+                android:id="@+id/product_name"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Product Category"
+                android:id="@+id/product_category"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Product Description"
+                android:gravity="top"
+                android:id="@+id/product_description"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload Product Photo"
+            android:onClick="onClickBarcodeProduct"
+            android:drawableLeft="@drawable/upload_product_photo"
+            android:layout_marginBottom="5dp"
+            android:textAllCaps="false"
+            android:background="@android:color/transparent"/>
+
+        <Button
+            android:drawableLeft="@drawable/take_barcode"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Take Barcode"
+            android:onClick="onClickPhotoProduct"
+            android:layout_marginBottom="35dp"
+            android:background="@android:color/transparent"/>
+
+        <Button
+            android:id="@+id/survey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            style="@style/ButtonStyle"
+            android:onClick="onClickSurveyProduct"/>
+
+    </LinearLayout>
+
+</LinearLayout>
