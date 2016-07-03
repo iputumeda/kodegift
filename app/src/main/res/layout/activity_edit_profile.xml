@@ -11,97 +11,101 @@
         android:layout_height="wrap_content"
         android:id="@+id/toolbar"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingBottom="16dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:paddingTop="16dp">
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@android:color/black"
-            android:id="@+id/photoField"
-            android:layout_marginBottom="20dp"/>
-
-        <android.support.design.widget.TextInputLayout
+        android:layout_weight="1">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp">
-            <EditText
-                android:hint="Full Name"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingTop="16dp">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@android:color/black"
+                android:id="@+id/photoField"
+                android:layout_marginBottom="20dp"/>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/fullNameField"
-                android:textAppearance="?android:textAppearanceMedium"/>
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="5dp">
+                <EditText
+                    android:hint="Full Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fullNameField"
+                    android:textAppearance="?android:textAppearanceMedium"/>
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_marginBottom="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:hint="E-mail"
+            <android.support.design.widget.TextInputLayout
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:hint="E-mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/emailField"
+                    android:inputType="textNoSuggestions"
+                    android:textAppearance="?android:textAppearanceMedium"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/emailField"
-                android:inputType="textNoSuggestions"
-                android:textAppearance="?android:textAppearanceMedium"/>
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="5dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Old Password"
+                    android:inputType="textPassword"
+                    android:id="@+id/oldPasswordField"
+                    android:textAppearance="?android:textAppearanceMedium"/>
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp">
-            <EditText
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Old Password"
-                android:inputType="textPassword"
-                android:id="@+id/oldPasswordField"
-                android:textAppearance="?android:textAppearanceMedium"/>
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="5dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="New Password"
+                    android:inputType="textPassword"
+                    android:id="@+id/passwordField"
+                    android:textAppearance="?android:textAppearanceMedium"/>
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp">
-            <EditText
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="New Password"
-                android:inputType="textPassword"
-                android:id="@+id/passwordField"
-                android:textAppearance="?android:textAppearanceMedium"/>
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="10dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Mobile Number"
+                    android:inputType="number"
+                    android:id="@+id/mobileNumberField"
+                    android:textAppearance="?android:textAppearanceMedium"/>
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
-            <EditText
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Mobile Number"
-                android:inputType="number"
-                android:id="@+id/mobileNumberField"
-                android:textAppearance="?android:textAppearanceMedium"/>
-        </android.support.design.widget.TextInputLayout>
+                android:layout_gravity="center_horizontal"
+                android:text="SAVE"
+                style="@style/ButtonStyle"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:onClick="onClickSaveProfile"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="SAVE"
-            style="@style/ButtonStyle"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:onClick="onClickSaveProfile"/>
-
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

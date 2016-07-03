@@ -18,14 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainMenuActivity"
             android:label="KODEGIFT" />
         <activity android:name=".HomeActivity" />
         <activity
             android:name=".RegisterActivity"
-            android:label="Register" />
+            android:label="Register"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SurveyActivity"
             android:label="Survey" />
@@ -43,7 +45,7 @@
             android:label="Edit Profile"
             android:parentActivityName=".MainMenuActivity"/>
         <activity android:name=".CategoryProductsActivity"
-            android:parentActivityName=".MainMenuActivity"></activity>
+            android:parentActivityName=".MainMenuActivity"/>
     </application>
 
 </manifest>

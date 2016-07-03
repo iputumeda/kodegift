@@ -3,6 +3,7 @@ package id.co.meda.survey;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +21,8 @@ import java.io.InputStream;
 public class EditProfileActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final int SELECT_PHOTO = 10;
-    ImageView photoUser;
+    private static final String CURRENT_PHOTO = "CURRENT PHOTO";
+    ImageView userPhoto;
     EditText userFullName;
     EditText userEmail;
     EditText userOldPassword;
@@ -28,15 +30,23 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
     EditText userMobileNumber;
     Toolbar toolbar;
 
+    private Bitmap currentPhoto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         init();
+        if(savedInstanceState!=null){
+            currentPhoto = savedInstanceState.getParcelable(CURRENT_PHOTO);
+            if(currentPhoto!=null){
+                userPhoto.setImageBitmap(currentPhoto);
+            }
+        }
     }
 
     public void init(){
-        photoUser = (ImageView) findViewById(R.id.photoField);
+        userPhoto = (ImageView) findViewById(R.id.photoField);
         userFullName = (EditText) findViewById(R.id.fullNameField);
         userEmail = (EditText) findViewById(R.id.emailField);
         userPassword = (EditText) findViewById(R.id.passwordField);
@@ -45,7 +55,7 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        photoUser.setOnClickListener(this);
+        userPhoto.setOnClickListener(this);
 
         //TODO menyetel userFullName dengan nama lengkap user yang ada di database server
         //TODO menyetel userEmail dengan email user didatabase server
@@ -109,12 +119,18 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
                 }
                 try {
                     InputStream inputStream = getContentResolver().openInputStream(data.getData());
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    photoUser.setImageBitmap(bitmap);
+                    currentPhoto = BitmapFactory.decodeStream(inputStream);
+                    userPhoto.setImageBitmap(currentPhoto);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
             }
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(CURRENT_PHOTO, currentPhoto);
     }
 }
