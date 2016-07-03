@@ -2,6 +2,7 @@ package id.co.meda.survey;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
@@ -30,12 +31,15 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.co.meda.survey.database.DatabaseHelper;
 import id.co.meda.survey.database.SurveyDatabase;
 import id.co.meda.survey.database.VoucherDatabase;
+import id.co.meda.survey.model.Barcode;
 import id.co.meda.survey.model.Product;
 
 public class MySurveyActivity extends AppCompatActivity{
 
+    private ProgressDialog progressDialog;
     Toolbar toolbar;
     RecyclerView list;
     TextView empty;
@@ -46,11 +50,9 @@ public class MySurveyActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_survey);
-
         init();
         populateData();
-        Log.e("FARISIIIIIII","ONCREATE");
-
+        Log.e("SEVTRIMAMEN","ONCREATE");
     }
 
     @Override
@@ -66,6 +68,7 @@ public class MySurveyActivity extends AppCompatActivity{
     }
 
     private void init(){
+        database = new SurveyDatabase(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -76,31 +79,41 @@ public class MySurveyActivity extends AppCompatActivity{
     }
 
     private void populateData(){
-        List<Product> products = getProducts();
-        MyRecycleAdapter adapter = new MyRecycleAdapter(products, this);
-        adapter.setListener(new MyRecycleAdapter.Listener() {
-            @Override
-            public void onItemClick(int position, ViewGroup root) {
-                Toast.makeText(MySurveyActivity.this, "POSITION : "+position, Toast.LENGTH_SHORT).show();
-                Intent intentSrveyDetail = new Intent(MySurveyActivity.this, ProductDetailActivity.class);
-                intentSrveyDetail.putExtra(ProductDetailActivity.ID, position);
-                startActivity(intentSrveyDetail);
-            }
-        });
-        list.setAdapter(adapter);
-        Log.e("FARISIIIIIII","POPULATE");
+        SurveyAsyncTask asyncTask = new SurveyAsyncTask();
+        asyncTask.execute();
+        Log.e("SEVTRIMAMEN","POPULATE");
     }
 
     private List<Product> getProducts(){
+        Log.e("SEVTRIMAMEN", "GET PRODUCT");
         List<Product> products = new ArrayList<>();
-        //TODO tambahkan produk2 yang ingin ditampilkan pada products
-        //DUMMY
-        products.add(new Product("Product A","Category A","10ml", null, null));
-        products.add(new Product("Product B","Category B","7pcs", null, null));
-        products.add(new Product("Product C","Category C","20ml", null, null));
-        products.add(new Product("Product D","Category D","30ml", null, null));
-        products.add(new Product("Product E","Category E","40ml", null, null));
+        SurveyAsyncTask asyncTask = new SurveyAsyncTask();
+        asyncTask.execute();
+        if (cursor != null) {
+            while(cursor.moveToNext()){
+                String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.NAME_COLUMN));
+                String category = cursor.getString(cursor.getColumnIndex(DatabaseHelper.CATEGORY_COLUMN));
+                String description = cursor.getString(cursor.getColumnIndex(DatabaseHelper.DESCRIPTION_COLUMN));
+                byte[] photo = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.PHOTO_COLUMN));
+                String contentBarcode = cursor.getString(cursor.getColumnIndex(DatabaseHelper.CONTENTS_BARCODE_COLUMN));
+                String formatBarcode = cursor.getString(cursor.getColumnIndex(DatabaseHelper.FORMAT_BARCODE_COLUMN));
+                Product product = new Product(name, category, description, photo, new Barcode(contentBarcode, formatBarcode));
+                products.add(product);
+                Log.e("SEVTRIMAMEN", "LOOP : "+product.getName());
+            }
+        }else{
+            Log.e("SEVTRIMAMEN", "1 CURSOR IS NULL");
+        }
+        Log.e("SEVTRIMAMEN", "SIZE : "+products.size());
         return products;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(cursor != null)
+            cursor.close();
+        database.close();
     }
 
     private static class MyRecycleAdapter extends RecyclerView.Adapter<MySurveyActivity.MyRecycleAdapter.MyViewHolder>{
@@ -124,7 +137,7 @@ public class MySurveyActivity extends AppCompatActivity{
         @Override
         public void onBindViewHolder(final MySurveyActivity.MyRecycleAdapter.MyViewHolder holder, final int position) {
             Product product = products.get(position);
-//            holder.productPhoto.setImageBitmap(BitmapFactory.decodeByteArray(product.getPhoto(),0, product.getPhoto().length));
+            holder.productPhoto.setImageBitmap(BitmapFactory.decodeByteArray(product.getPhoto(),0, product.getPhoto().length));
             holder.productName.setText(product.getName());
             holder.productCategory.setText(product.getCategory());
             holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -167,4 +180,57 @@ public class MySurveyActivity extends AppCompatActivity{
         }
 
     }
+
+    private class SurveyAsyncTask extends AsyncTask<Void, Void, List<Product>>{
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(MySurveyActivity.this);
+            progressDialog.show();
+        }
+
+        @Override
+        protected List<Product> doInBackground(Void... params) {
+            cursor = database.queryProducts();
+            List<Product> products = new ArrayList<>();
+            while(cursor.moveToNext()){
+                Product product = getProduct(cursor);
+                products.add(product);
+                Log.e("SEVTRIMAMEN", "LOOP : "+product.getName());
+            }
+            return products;
+        }
+
+        private Product getProduct(Cursor cursor){
+            String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.NAME_COLUMN));
+            String category = cursor.getString(cursor.getColumnIndex(DatabaseHelper.CATEGORY_COLUMN));
+            String description = cursor.getString(cursor.getColumnIndex(DatabaseHelper.DESCRIPTION_COLUMN));
+            byte[] photo = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.PHOTO_COLUMN));
+            String contentBarcode = cursor.getString(cursor.getColumnIndex(DatabaseHelper.CONTENTS_BARCODE_COLUMN));
+            String formatBarcode = cursor.getString(cursor.getColumnIndex(DatabaseHelper.FORMAT_BARCODE_COLUMN));
+            return new Product(name, category, description, photo, new Barcode(contentBarcode, formatBarcode));
+        }
+
+        @Override
+        protected void onPostExecute(List<Product> products) {
+            progressDialog.dismiss();
+            if(products.size() > 0) {
+                MyRecycleAdapter adapter = new MyRecycleAdapter(products, MySurveyActivity.this);
+                adapter.setListener(new MyRecycleAdapter.Listener() {
+                    @Override
+                    public void onItemClick(int position, ViewGroup root) {
+                        Toast.makeText(MySurveyActivity.this, "POSITION : "+position, Toast.LENGTH_SHORT).show();
+                        Intent intentSrveyDetail = new Intent(MySurveyActivity.this, ProductDetailActivity.class);
+                        intentSrveyDetail.putExtra(ProductDetailActivity.ID, position);
+                        startActivity(intentSrveyDetail);
+                    }
+                });
+                list.setAdapter(adapter);
+                Log.e("SEVTRIMAMEN","PRODUCT IS NOT NOL, PRODUCT IS GOTTEN");
+            }else{
+                Log.e("SEVTRIMAMEN","PRODUCT IS NOL, PRODUCT IS NOT GOTTEN");
+            }
+        }
+    }
+
 }

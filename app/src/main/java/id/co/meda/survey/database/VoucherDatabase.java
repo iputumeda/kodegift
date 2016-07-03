@@ -13,64 +13,46 @@ import id.co.meda.survey.model.Voucher;
  */
 public class VoucherDatabase {
 
-    private SQLiteDatabase database;
+    private DatabaseHelper databaseHelper;
+    private SQLiteDatabase rDatabase;
+    private SQLiteDatabase wDatabase;
 
     public VoucherDatabase(Context context){
-        database = (new VoucherDatabaseHelper(context)).getWritableDatabase();
+        databaseHelper = DatabaseHelper.getInstance(context);
+        rDatabase = databaseHelper.getReadableDatabase();
+        wDatabase = databaseHelper.getWritableDatabase();
     }
 
     public long insertVoucher(Voucher voucher){
 
         ContentValues values = new ContentValues();
-        values.put(VoucherDatabaseHelper.NAME_COLUMN, voucher.getName());
-        values.put(VoucherDatabaseHelper.VOUCHER_COLUMN, voucher.getVoucher());
-        return database.insert(VoucherDatabaseHelper.TABLE_NAME, null, values);
+        values.put(DatabaseHelper.NAME_COLUMN, voucher.getName());
+        values.put(DatabaseHelper.VOUCHER_COLUMN, voucher.getVoucher());
+        return wDatabase.insert(DatabaseHelper.VOUCHER_TABLE, null, values);
 
     }
 
     public int updateVoucher(String oldVoucherName, Voucher voucher){
 
         ContentValues values = new ContentValues();
-        values.put(VoucherDatabaseHelper.NAME_COLUMN, voucher.getName());
-        values.put(VoucherDatabaseHelper.VOUCHER_COLUMN, voucher.getVoucher());
-        return database.update(VoucherDatabaseHelper.TABLE_NAME, values, "NAME = ?", new String[]{oldVoucherName});
+        values.put(DatabaseHelper.NAME_COLUMN, voucher.getName());
+        values.put(DatabaseHelper.VOUCHER_COLUMN, voucher.getVoucher());
+        return wDatabase.update(DatabaseHelper.VOUCHER_TABLE, values, "NAME = ?", new String[]{oldVoucherName});
 
     }
 
     public int deleteVoucher(String voucherName){
-        return database.delete(VoucherDatabaseHelper.TABLE_NAME, "NAME = ?", new String[]{voucherName});
+        return wDatabase.delete(DatabaseHelper.VOUCHER_TABLE, "NAME = ?", new String[]{voucherName});
     }
 
     public Cursor queryVoucher(){
-        return database.query(VoucherDatabaseHelper.TABLE_NAME, new String[]{"_id",VoucherDatabaseHelper.NAME_COLUMN, VoucherDatabaseHelper.VOUCHER_COLUMN}, null, null, null, null, VoucherDatabaseHelper.NAME_COLUMN);
+        return rDatabase.query(DatabaseHelper.VOUCHER_TABLE, new String[]{"_id",DatabaseHelper.NAME_COLUMN, DatabaseHelper.VOUCHER_COLUMN}, null, null, null, null, DatabaseHelper.NAME_COLUMN);
     }
 
     public void close(){
-        database.close();
-    }
-
-    public class VoucherDatabaseHelper extends SQLiteOpenHelper {
-
-        private static final String TABLE_NAME = "VOUCHER_TABLE";
-        public static final String NAME_COLUMN = "NAME";
-        public static final String VOUCHER_COLUMN = "VOUCHER";
-        private static final String DATABASE_NAME = "Voucher_Database";
-        private static final int DATABASE_VERSION = 1;
-        private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME_COLUMN+" TEXT, "+VOUCHER_COLUMN+" INTEGER);";
-
-        public VoucherDatabaseHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(CREATE_TABLE);
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-        }
+        databaseHelper.close();
+        rDatabase.close();
+        wDatabase.close();
     }
 
 }

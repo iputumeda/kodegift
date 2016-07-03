@@ -124,25 +124,30 @@ public class SurveyActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            SurveyDatabase databaseSurvey = null;
             try {
-                SurveyDatabase databaseSurvey = new SurveyDatabase(SurveyActivity.this);
+                databaseSurvey = new SurveyDatabase(SurveyActivity.this);
                 Product product = new Product(productNameString, productCategoryString, productDescriptionString, imageToDatabase, new Barcode(contents, formatName));
-                databaseSurvey.insertProduct(product);
-                databaseSurvey.close();
-                Log.e("SEVTRIMAMEN", "SURVEY IS SAVED");
+                long index = databaseSurvey.insertProduct(product);
+                Log.e("SEVTRIMAMEN", "SURVEY IS SAVED, INDEX: "+index);
                 return true;
             }catch (SQLiteException e){
                 Log.e("SEVTRIMAMEN", "SURVEY IS NOTSAVED, PESAN: "+e.getMessage());
                 return false;
+            }finally {
+                Log.e("SEVTRIMAMEN", "SURVEY HAS BEEN CLOSED");
+                databaseSurvey.close();
             }
         }
 
         @Override
         protected void onPostExecute(Boolean isSaved) {
-            if(isSaved) {
-                Toast.makeText(SurveyActivity.this, "survey is saved", Toast.LENGTH_SHORT).show();
+            if(isSaved){
+                Toast.makeText(SurveyActivity.this, "SAVED", Toast.LENGTH_LONG).show();
+                finish();
+            }else{
+                Toast.makeText(SurveyActivity.this, "NOT SAVED", Toast.LENGTH_LONG).show();
             }
-            finish();
         }
     }
 
