@@ -13,92 +13,70 @@ import id.co.meda.survey.model.Product;
  */
 public class SurveyDatabase {
 
-    private SQLiteDatabase database;
+    private SQLiteDatabase rDatabase;
+    private SQLiteDatabase wDatabase;
+    private DatabaseHelper databaseHelper;
 
     public SurveyDatabase(Context context){
-        database = (new SurveyDatabaseHelper(context)).getWritableDatabase();
+        databaseHelper = DatabaseHelper.getInstance(context);
+        rDatabase = databaseHelper.getReadableDatabase();
+        wDatabase = databaseHelper.getWritableDatabase();
     }
 
     public long insertProduct(Product product){
 
         ContentValues values = new ContentValues();
-        values.put(SurveyDatabaseHelper.NAME_COLUMN, product.getName());
-        values.put(SurveyDatabaseHelper.CATEGORY_COLUMN, product.getCategory());
-        values.put(SurveyDatabaseHelper.DESCRIPTION_COLUMN, product.getDescription());
-        values.put(SurveyDatabaseHelper.PHOTO_COLUMN, product.getPhoto());
-        values.put(SurveyDatabaseHelper.CONTENTS_BARCODE_COLUMN, product.getBarcode().getContents());
-        values.put(SurveyDatabaseHelper.FORMAT_BARCODE_COLUMN, product.getBarcode().getFormat());
-        return database.insert(SurveyDatabaseHelper.TABLE_NAME, null, values);
+        values.put(DatabaseHelper.NAME_COLUMN, product.getName());
+        values.put(DatabaseHelper.CATEGORY_COLUMN, product.getCategory());
+        values.put(DatabaseHelper.DESCRIPTION_COLUMN, product.getDescription());
+        values.put(DatabaseHelper.PHOTO_COLUMN, product.getPhoto());
+        values.put(DatabaseHelper.CONTENTS_BARCODE_COLUMN, product.getBarcode().getContents());
+        values.put(DatabaseHelper.FORMAT_BARCODE_COLUMN, product.getBarcode().getFormat());
+        return wDatabase.insert(DatabaseHelper.SURVEY_TABLE, null, values);
 
     }
 
     public int updateProduct(String oldProductName, Product product){
 
         ContentValues values = new ContentValues();
-        values.put(SurveyDatabaseHelper.NAME_COLUMN, product.getName());
-        values.put(SurveyDatabaseHelper.CATEGORY_COLUMN, product.getName());
-        values.put(SurveyDatabaseHelper.DESCRIPTION_COLUMN, product.getName());
-        values.put(SurveyDatabaseHelper.CATEGORY_COLUMN, product.getName());
-        values.put(SurveyDatabaseHelper.CONTENTS_BARCODE_COLUMN, product.getBarcode().getContents());
-        values.put(SurveyDatabaseHelper.FORMAT_BARCODE_COLUMN, product.getBarcode().getFormat());
-        return database.update(SurveyDatabaseHelper.TABLE_NAME, values, "NAME = ?", new String[]{oldProductName});
+        values.put(DatabaseHelper.NAME_COLUMN, product.getName());
+        values.put(DatabaseHelper.CATEGORY_COLUMN, product.getName());
+        values.put(DatabaseHelper.DESCRIPTION_COLUMN, product.getName());
+        values.put(DatabaseHelper.CATEGORY_COLUMN, product.getName());
+        values.put(DatabaseHelper.CONTENTS_BARCODE_COLUMN, product.getBarcode().getContents());
+        values.put(DatabaseHelper.FORMAT_BARCODE_COLUMN, product.getBarcode().getFormat());
+        return wDatabase.update(DatabaseHelper.SURVEY_TABLE, values, "NAME = ?", new String[]{oldProductName});
 
     }
 
     public int deleteProduct(String productName){
-        return database.delete(SurveyDatabaseHelper.TABLE_NAME, "NAME = ?", new String[]{productName});
+        return wDatabase.delete(DatabaseHelper.SURVEY_TABLE, "NAME = ?", new String[]{productName});
     }
 
     public Cursor queryProducts(){
-        return database.query(SurveyDatabaseHelper.TABLE_NAME,
-                new String[]{"_id",SurveyDatabaseHelper.NAME_COLUMN,
-                        SurveyDatabaseHelper.CATEGORY_COLUMN,
-                        SurveyDatabaseHelper.DESCRIPTION_COLUMN,
-                        SurveyDatabaseHelper.DESCRIPTION_COLUMN,
-                        SurveyDatabaseHelper.PHOTO_COLUMN,
-                        SurveyDatabaseHelper.CONTENTS_BARCODE_COLUMN,
-                        SurveyDatabaseHelper.FORMAT_BARCODE_COLUMN}, null, null, null, null, null);
+        return rDatabase.query(DatabaseHelper.SURVEY_TABLE,
+                new String[]{"_id",DatabaseHelper.NAME_COLUMN,
+                        DatabaseHelper.CATEGORY_COLUMN,
+                        DatabaseHelper.DESCRIPTION_COLUMN,
+                        DatabaseHelper.DESCRIPTION_COLUMN,
+                        DatabaseHelper.PHOTO_COLUMN,
+                        DatabaseHelper.CONTENTS_BARCODE_COLUMN,
+                        DatabaseHelper.FORMAT_BARCODE_COLUMN}, null, null, null, null, null);
     }
 
     public Cursor queryProducts(long id){
-        return database.query(SurveyDatabaseHelper.TABLE_NAME,
-                new String[]{"_id",SurveyDatabaseHelper.NAME_COLUMN,
-                        SurveyDatabaseHelper.CATEGORY_COLUMN,
-                        SurveyDatabaseHelper.DESCRIPTION_COLUMN,
-                        SurveyDatabaseHelper.DESCRIPTION_COLUMN,
-                        SurveyDatabaseHelper.PHOTO_COLUMN}, "_id = ?", new String[]{id+""}, null, null, null);
+        return rDatabase.query(DatabaseHelper.SURVEY_TABLE,
+                new String[]{"_id",DatabaseHelper.NAME_COLUMN,
+                        DatabaseHelper.CATEGORY_COLUMN,
+                        DatabaseHelper.DESCRIPTION_COLUMN,
+                        DatabaseHelper.DESCRIPTION_COLUMN,
+                        DatabaseHelper.PHOTO_COLUMN}, "_id = ?", new String[]{id+""}, null, null, null);
     }
 
     public void close(){
-        database.close();
-    }
-
-    public class SurveyDatabaseHelper extends SQLiteOpenHelper{
-
-        private static final String TABLE_NAME = "SURVEY_TABLE";
-        public static final String NAME_COLUMN = "NAME";
-        public static final String CATEGORY_COLUMN = "CATEGORY";
-        public static final String DESCRIPTION_COLUMN = "DESCRIPTION";
-        public static final String PHOTO_COLUMN = "PHOTO";
-        public static final String CONTENTS_BARCODE_COLUMN = "CONTENTS_BARCODE";
-        public static final String FORMAT_BARCODE_COLUMN = "FORMAT_BARCODE";
-        private static final String DATABASE_NAME = "Survey_Database";
-        private static final int DATABASE_VERSION = 1;
-        private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME_COLUMN+" TEXT, "+CATEGORY_COLUMN+" TEXT, "+DESCRIPTION_COLUMN+" TEXT, "+PHOTO_COLUMN+" BLOB, "+CONTENTS_BARCODE_COLUMN+" TEXT, "+FORMAT_BARCODE_COLUMN+" TEXT);";
-
-        public SurveyDatabaseHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(CREATE_TABLE);
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-        }
+        databaseHelper.close();
+        rDatabase.close();
+        wDatabase.close();
     }
 
 }
