@@ -43,7 +43,8 @@
             android:label="My Reedem Items" />
         <activity
             android:name=".ProductDetailActivity"
-            android:label="Review Product" />
+            android:label="Review Product"
+            android:parentActivityName=".MainMenuActivity"/>
         <activity
             android:name=".EditProfileActivity"
             android:label="Edit Profile"
