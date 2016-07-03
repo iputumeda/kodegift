@@ -42,14 +42,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         DetailTask task = new DetailTask();
         int id = getIntent().getIntExtra(ID, 0);
-        Log.e("SEVTRIMAMEN", "ID: "+id);
+        Log.e("SEVTRIMAMEN", "ID: " + id);
         task.execute(id);
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        cursor.close();
-        database.close();
     }
 
     public void initView(){
@@ -62,16 +56,16 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            productTitle = (TextView) findViewById(R.id.productTitle_tv_asd);
-            productPhoto = (ImageView) findViewById(R.id.productPhoto_iv_asd);
-            productCategory = (TextView) findViewById(R.id.productCategory_tv_asd);
-            productDescription = (TextView) findViewById(R.id.productDescription_tv_asd);
+            productTitle = (TextView) findViewById(R.id.product_title);
+            productPhoto = (ImageView) findViewById(R.id.product_photo);
+            productCategory = (TextView) findViewById(R.id.product_category);
+            productDescription = (TextView) findViewById(R.id.product_description);
         }
 
         @Override
         protected Product doInBackground(Integer... params) {
             try {
-                database = new SurveyDatabase(SurveyDetailActivity.this);
+                database = new SurveyDatabase(ProductDetailActivity.this);
                 cursor = database.queryProducts(params[0]);
                 Log.e("SEVTRIMAMEN", "ROW: "+cursor.getCount());
                 cursor.moveToFirst();
@@ -102,7 +96,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 productCategory.setText(product.getCategory());
                 productDescription.setText(product.getDescription());
             }else{
-                Toast.makeText(SurveyDetailActivity.this, "product isn't found",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductDetailActivity.this, "product isn't found",Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -129,14 +123,14 @@ public class ProductDetailActivity extends AppCompatActivity {
         String description = cursor.getString(
                 cursor.getColumnIndex(SurveyDatabase.SurveyDatabaseHelper.DESCRIPTION_COLUMN)
         );
-        String photo = cursor.getString(
+        byte[] photo = cursor.getBlob(
                 cursor.getColumnIndex(SurveyDatabase.SurveyDatabaseHelper.PHOTO_COLUMN)
         );
 
-        Product product = new Product(name,category,description,photo,new Barcode());
+        Product product = new Product(name,category,description,photo,null);
 
         productTitle.setText(product.getName());
-        productPhoto.setImageDrawable(Drawable.createFromPath(getFilePath(product.getPhoto())));
+        productPhoto.setImageBitmap(BitmapFactory.decodeByteArray(product.getPhoto(),0,product.getPhoto().length));
         productCategory.setText(product.getCategory());
         productDescription.setText(product.getDescription());
     }
@@ -152,6 +146,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        database.close();
+        cursor.close();
         database.close();
     }
 }

@@ -19,9 +19,9 @@ import com.google.zxing.integration.android.IntentResult;
 import java.io.ByteArrayOutputStream;
 
 import id.co.meda.survey.database.SurveyDatabase;
+import id.co.meda.survey.database.VoucherDatabase;
 import id.co.meda.survey.model.Barcode;
 import id.co.meda.survey.model.Product;
-import id.co.meda.survey.model.Voucher;
 
 public class SurveyActivity extends AppCompatActivity {
 
@@ -74,8 +74,18 @@ public class SurveyActivity extends AppCompatActivity {
         productCategoryString = productCategory.getText().toString();
         productDescriptionString = productDescription.getText().toString();
 
-        SurveyTask task = new SurveyTask();
-        task.execute();
+        if(isValidToSaveSurvey()){
+            SurveyTask task = new SurveyTask();
+            task.execute();
+        }else{
+            Toast.makeText(this, "your survey is not complete",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isValidToSaveSurvey(){
+        return !productNameString.equals("") && productNameString.length() != 0 &&
+                !productCategoryString.equals("") && productCategoryString.length() != 0 &&
+                !productDescriptionString.equals("") && productDescriptionString.length() != 0;
     }
 
     @Override

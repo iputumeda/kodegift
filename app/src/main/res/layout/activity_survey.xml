@@ -61,11 +61,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Upload Product Photo"
-            android:onClick="onClickBarcodeProduct"
             android:drawableLeft="@drawable/upload_product_photo"
             android:layout_marginBottom="5dp"
             android:textAllCaps="false"
-            android:background="@android:color/transparent"/>
+            android:onClick="onClickPhotoProduct"
+            android:background="@android:color/transparent"
+            />
 
         <Button
             android:drawableLeft="@drawable/take_barcode"
@@ -73,8 +74,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Take Barcode"
-            android:onClick="onClickPhotoProduct"
             android:layout_marginBottom="35dp"
+            android:onClick="onClickBarcodeProduct"
             android:background="@android:color/transparent"/>
 
         <Button

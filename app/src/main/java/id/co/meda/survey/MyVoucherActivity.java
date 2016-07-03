@@ -56,7 +56,7 @@ public class MyVoucherActivity extends ListActivity {
                     R.layout.item_voucher,
                     cursor,
                     new String[]{SurveyDatabase.SurveyDatabaseHelper.NAME_COLUMN},
-                    new int[]{R.id.productName_tv_iv},0);
+                    new int[]{R.id.product_name},0);
             listView.setAdapter(adapter);
         }
     }
