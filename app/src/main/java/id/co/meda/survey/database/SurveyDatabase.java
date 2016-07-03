@@ -58,7 +58,6 @@ public class SurveyDatabase {
                 new String[]{"_id",DatabaseHelper.NAME_COLUMN,
                         DatabaseHelper.CATEGORY_COLUMN,
                         DatabaseHelper.DESCRIPTION_COLUMN,
-                        DatabaseHelper.DESCRIPTION_COLUMN,
                         DatabaseHelper.PHOTO_COLUMN,
                         DatabaseHelper.CONTENTS_BARCODE_COLUMN,
                         DatabaseHelper.FORMAT_BARCODE_COLUMN}, null, null, null, null, null);
@@ -69,8 +68,9 @@ public class SurveyDatabase {
                 new String[]{"_id",DatabaseHelper.NAME_COLUMN,
                         DatabaseHelper.CATEGORY_COLUMN,
                         DatabaseHelper.DESCRIPTION_COLUMN,
-                        DatabaseHelper.DESCRIPTION_COLUMN,
-                        DatabaseHelper.PHOTO_COLUMN}, "_id = ?", new String[]{id+""}, null, null, null);
+                        DatabaseHelper.PHOTO_COLUMN,
+                        DatabaseHelper.CONTENTS_BARCODE_COLUMN,
+                        DatabaseHelper.FORMAT_BARCODE_COLUMN}, "_id = ?", new String[]{id+""}, null, null, null);
     }
 
     public void close(){
