@@ -35,4 +35,6 @@
     <string name="baby_care">Baby Care</string>
     <string name="beauty">Beauty</string>
     <string name="personal_care">Personal Care</string>
+    <string name="take_product_s_photo">Take Photo</string>
+    <string name="take_product_s_barcode">Take Barcode</string>
 </resources>

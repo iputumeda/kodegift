@@ -23,10 +23,11 @@ public class SurveyDatabase {
 
         ContentValues values = new ContentValues();
         values.put(SurveyDatabaseHelper.NAME_COLUMN, product.getName());
-        values.put(SurveyDatabaseHelper.CATEGORY_COLUMN, product.getName());
-        values.put(SurveyDatabaseHelper.DESCRIPTION_COLUMN, product.getName());
-        values.put(SurveyDatabaseHelper.CATEGORY_COLUMN, product.getName());
-        //TODO KURANG BARCODE
+        values.put(SurveyDatabaseHelper.CATEGORY_COLUMN, product.getCategory());
+        values.put(SurveyDatabaseHelper.DESCRIPTION_COLUMN, product.getDescription());
+        values.put(SurveyDatabaseHelper.PHOTO_COLUMN, product.getPhoto());
+        values.put(SurveyDatabaseHelper.CONTENTS_BARCODE_COLUMN, product.getBarcode().getContents());
+        values.put(SurveyDatabaseHelper.FORMAT_BARCODE_COLUMN, product.getBarcode().getFormat());
         return database.insert(SurveyDatabaseHelper.TABLE_NAME, null, values);
 
     }
@@ -38,7 +39,8 @@ public class SurveyDatabase {
         values.put(SurveyDatabaseHelper.CATEGORY_COLUMN, product.getName());
         values.put(SurveyDatabaseHelper.DESCRIPTION_COLUMN, product.getName());
         values.put(SurveyDatabaseHelper.CATEGORY_COLUMN, product.getName());
-        //TODO KURANG BARCODE
+        values.put(SurveyDatabaseHelper.CONTENTS_BARCODE_COLUMN, product.getBarcode().getContents());
+        values.put(SurveyDatabaseHelper.FORMAT_BARCODE_COLUMN, product.getBarcode().getFormat());
         return database.update(SurveyDatabaseHelper.TABLE_NAME, values, "NAME = ?", new String[]{oldProductName});
 
     }
@@ -53,7 +55,9 @@ public class SurveyDatabase {
                         SurveyDatabaseHelper.CATEGORY_COLUMN,
                         SurveyDatabaseHelper.DESCRIPTION_COLUMN,
                         SurveyDatabaseHelper.DESCRIPTION_COLUMN,
-                        SurveyDatabaseHelper.PHOTO_COLUMN}, null, null, null, null, null);
+                        SurveyDatabaseHelper.PHOTO_COLUMN,
+                        SurveyDatabaseHelper.CONTENTS_BARCODE_COLUMN,
+                        SurveyDatabaseHelper.FORMAT_BARCODE_COLUMN}, null, null, null, null, null);
     }
 
     public Cursor queryProducts(long id){
@@ -76,9 +80,11 @@ public class SurveyDatabase {
         public static final String CATEGORY_COLUMN = "CATEGORY";
         public static final String DESCRIPTION_COLUMN = "DESCRIPTION";
         public static final String PHOTO_COLUMN = "PHOTO";
+        public static final String CONTENTS_BARCODE_COLUMN = "CONTENTS_BARCODE";
+        public static final String FORMAT_BARCODE_COLUMN = "FORMAT_BARCODE";
         private static final String DATABASE_NAME = "Survey_Database";
         private static final int DATABASE_VERSION = 1;
-        private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME_COLUMN+" TEXT, "+CATEGORY_COLUMN+" TEXT, "+DESCRIPTION_COLUMN+" TEXT, "+PHOTO_COLUMN+" TEXT);";
+        private static final String CREATE_TABLE = "CREATE TABLE "+TABLE_NAME+" ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "+NAME_COLUMN+" TEXT, "+CATEGORY_COLUMN+" TEXT, "+DESCRIPTION_COLUMN+" TEXT, "+PHOTO_COLUMN+" BLOB, "+CONTENTS_BARCODE_COLUMN+" TEXT, "+FORMAT_BARCODE_COLUMN+" TEXT);";
 
         public SurveyDatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);

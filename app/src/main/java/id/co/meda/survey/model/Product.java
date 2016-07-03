@@ -10,11 +10,11 @@ public class Product{
     private String name;
     private String category;
     private String description;
-    private String photo;
+    private byte[] photo;
     private Barcode barcode;
     private int point;
 
-    public Product(String name, String category, String description, String photo, Barcode barcode) {
+    public Product(String name, String category, String description, byte[] photo, Barcode barcode) {
         this.name = name;
         this.category = category;
         this.description = description;
@@ -47,11 +47,11 @@ public class Product{
         this.description = description;
     }
 
-    public String getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
