@@ -3,6 +3,7 @@ package id.co.meda.survey;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,21 @@ import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.Request.Method;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import id.co.meda.survey.config.UrlConfig;
+import id.co.meda.survey.controller.AppController;
+import id.co.meda.survey.helper.LocalDBHandler;
+import id.co.meda.survey.helper.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -193,6 +209,58 @@ public class LoginActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
+    private void registerView(){
+
+        Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(i);
+
+
+        //progress Dialog
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
+
+        //LocalDBHandler
+        db =  new LocalDBHandler(getApplicationContext());
+
+        //SessionManager
+        session = new SessionManager(getApplicationContext());
+
+        //check isLoggedIn
+        if(session.isLoggedIn()){
+
+            //Take to homActivity if already loggin
+            Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+
+        Button loginBtn = (Button) findViewById(R.id.loginBtn);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                loginRequest();
+            }
+        });
+
+
+
+        TextView register = (TextView) findViewById(R.id.link_to_register);
+        register.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                registerView();
+            }
+        });
+
+
+
+    }
+
     private void showDialog() {
         if (!pDialog.isShowing())
             pDialog.show();
@@ -201,14 +269,6 @@ public class LoginActivity extends AppCompatActivity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
-    }
-
-
-
-    private void registerView(){
-
-        Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
-        startActivity(i);
     }
 
     @Override

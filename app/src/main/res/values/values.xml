@@ -3,6 +3,6 @@
     <color name="background_material_light">#ffffff</color>
     <color name="primary_material_light">#dd0011</color>
     <color name="foreground_material_light">#ffffff</color>
-    <color name="accent_material_light">#ffffff</color>
+    <color name="accent_material_light">#fe1414</color>
     <color name="primary_dark_material_light">#000000</color>
 </resources>
