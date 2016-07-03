@@ -11,7 +11,8 @@
         android:name=".controller.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:label="KODEGIFT">
         <activity
             android:name=".FlashScreenActivity"
             android:screenOrientation="portrait">
