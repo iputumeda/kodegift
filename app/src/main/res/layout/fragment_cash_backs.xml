@@ -6,11 +6,13 @@
     tools:context="id.co.meda.survey.CashBacksFragment"
     android:background="#e6e6e6">
 
-    <LinearLayout
+    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/slider"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#d01"/>
+        android:background="@android:color/white"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"

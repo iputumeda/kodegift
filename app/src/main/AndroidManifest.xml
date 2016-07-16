@@ -4,15 +4,16 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:name=".controller.AppController"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:theme="@style/AppTheme"
-        android:label="KODEGIFT">
+        android:icon="@drawable/logo"
+        android:label="KODEGIFT"
+        android:theme="@style/AppTheme">
         <activity
             android:name=".FlashScreenActivity"
             android:screenOrientation="portrait">
@@ -22,8 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainMenuActivity"
             android:label="KODEGIFT" />
@@ -31,11 +33,11 @@
         <activity
             android:name=".RegisterActivity"
             android:label="Register"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SurveyActivity"
             android:label="Survey"
-            android:parentActivityName=".MainMenuActivity"/>
+            android:parentActivityName=".MainMenuActivity" />
         <activity
             android:name=".MySurveyActivity"
             android:label="My Survey" />
@@ -45,13 +47,15 @@
         <activity
             android:name=".ProductDetailActivity"
             android:label="Review Product"
-            android:parentActivityName=".MainMenuActivity"/>
+            android:parentActivityName=".MainMenuActivity" />
         <activity
             android:name=".EditProfileActivity"
             android:label="Edit Profile"
-            android:parentActivityName=".MainMenuActivity"/>
-        <activity android:name=".CategoryProductsActivity"
-            android:parentActivityName=".MainMenuActivity"/>
+            android:parentActivityName=".MainMenuActivity" />
+        <activity
+            android:name=".CategoryProductsActivity"
+            android:parentActivityName=".MainMenuActivity" />
+        <activity android:name=".SurveyResultActivity"></activity>
     </application>
 
 </manifest>
