@@ -98,9 +98,9 @@ public class SurveyActivity extends AppCompatActivity {
             if(imageBitmap != null) {
                 //konvert Bitmap ke array of bytes
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imageBitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 imageToDatabase = stream.toByteArray();
-                Log.e("SEVTRIMAMEN", "PHOTO IS GOTTEN");
+                Log.e("SEVTRIMAMEN", "PHOTO IS GOTTEN AND NOT NULL = "+(imageToDatabase!=null));
             }else{
                 Log.e("SEVTRIMAMEN", "PHOTO IS NOT GOTTEN");
             }
@@ -129,7 +129,7 @@ public class SurveyActivity extends AppCompatActivity {
                 databaseSurvey = new SurveyDatabase(SurveyActivity.this);
                 Product product = new Product(productNameString, productCategoryString, productDescriptionString, imageToDatabase, new Barcode(contents, formatName));
                 long index = databaseSurvey.insertProduct(product);
-                Log.e("SEVTRIMAMEN", "SURVEY IS SAVED, INDEX: "+index);
+                Log.e("SEVTRIMAMEN", "SURVEY IS SAVED, INDEX: "+index+", PRODUCT: "+product);
                 return true;
             }catch (SQLiteException e){
                 Log.e("SEVTRIMAMEN", "SURVEY IS NOTSAVED, PESAN: "+e.getMessage());
@@ -143,7 +143,7 @@ public class SurveyActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean isSaved) {
             if(isSaved){
-                Toast.makeText(SurveyActivity.this, "SAVED", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(SurveyActivity.this, SurveyResultActivity.class));
                 finish();
             }else{
                 Toast.makeText(SurveyActivity.this, "NOT SAVED", Toast.LENGTH_LONG).show();

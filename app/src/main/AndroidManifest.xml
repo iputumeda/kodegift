@@ -40,10 +40,12 @@
             android:parentActivityName=".MainMenuActivity" />
         <activity
             android:name=".MySurveyActivity"
-            android:label="My Survey" />
+            android:label="My Survey"
+            android:parentActivityName=".MainMenuActivity" />
         <activity
             android:name=".MyVoucherActivity"
-            android:label="My Reedem Items" />
+            android:label="My Reedem Items"
+            android:parentActivityName=".MainMenuActivity" />
         <activity
             android:name=".ProductDetailActivity"
             android:label="Review Product"

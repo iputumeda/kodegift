@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import id.co.meda.survey.model.Product;
 
@@ -64,13 +65,15 @@ public class SurveyDatabase {
     }
 
     public Cursor queryProducts(long id){
+        Log.e("SEVTRIMAMEN","QUERY PRODUCT WITH ID = "+id);
         return rDatabase.query(DatabaseHelper.SURVEY_TABLE,
                 new String[]{"_id",DatabaseHelper.NAME_COLUMN,
                         DatabaseHelper.CATEGORY_COLUMN,
                         DatabaseHelper.DESCRIPTION_COLUMN,
                         DatabaseHelper.PHOTO_COLUMN,
                         DatabaseHelper.CONTENTS_BARCODE_COLUMN,
-                        DatabaseHelper.FORMAT_BARCODE_COLUMN}, "_id = ?", new String[]{id+""}, null, null, null);
+                        DatabaseHelper.FORMAT_BARCODE_COLUMN},
+                "_id = ?", new String[]{id+""}, null, null, null);
     }
 
     public void close(){

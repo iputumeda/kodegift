@@ -2,7 +2,9 @@ package id.co.meda.survey.drawer;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import id.co.meda.survey.EditProfileActivity;
+import id.co.meda.survey.LoginActivity;
+import id.co.meda.survey.MySurveyActivity;
+import id.co.meda.survey.MyVoucherActivity;
 import id.co.meda.survey.R;
+import id.co.meda.survey.SurveyActivity;
+import id.co.meda.survey.helper.LocalDBHandler;
+import id.co.meda.survey.helper.SessionManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,7 +35,8 @@ public class NavigationDrawerFragment extends Fragment{
 
     private int[] imgSrc1;
     private int[] imgSrc2;
-    private NavigationDrawerListener listener;
+    private LocalDBHandler db;
+    private SessionManager session;
 
     public NavigationDrawerFragment() {
         imgSrc1 = new int[4];
@@ -71,42 +82,70 @@ public class NavigationDrawerFragment extends Fragment{
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if(context instanceof NavigationDrawerListener){
-            listener = (NavigationDrawerListener) context;
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        populateData();
+    }
+
+    private void populateData(){
+        // SqLite database handler
+        db = new LocalDBHandler(getContext().getApplicationContext());
+        // session manager
+        session = new SessionManager(getContext().getApplicationContext());
+
+        if (!session.isLoggedIn()) {
+           //logout();
         }
+
+        // ambildata SQLite
+        HashMap<String, String> user = db.getUserDetails();
+
+        String name = user.get("name");
+        String email = user.get("email");
     }
 
     private void onDrawerItemMenuClick(String criteria, int position){
         if(criteria.equals("ONE")){
             switch (position){
                 case 0:
-                    listener.survey();
+                    //SURVEY
+                    Intent intentSurvey = new Intent(getActivity(), SurveyActivity.class);
+                    startActivity(intentSurvey);
                     break;
                 case 1:
-                    listener.mySurvey();
+                    //MY SURVEY
+                    Intent intentMySurvey = new Intent(getActivity(), MySurveyActivity.class);
+                    startActivity(intentMySurvey);
                     break;
                 case 2:
-                    listener.myReedemItems();
+                    //MY REEDEMITEM
+                    Intent intentMyVoucher = new Intent(getActivity(), MyVoucherActivity.class);
+                    startActivity(intentMyVoucher);
                     break;
                 case 3:
-                    listener.cashOutHistory();
+                    //MY CASHOUT HISTORY
                     break;
             }
         }else{
             switch (position){
                 case 0:
-                    listener.helpCenter();
+                    //HELP CENTER
                     break;
                 case 1:
-                    listener.editProfile();
+                    //EDIT PROFIL
+                    startActivity(new Intent(getActivity(), EditProfileActivity.class));
                     break;
                 case 2:
-                    listener.setting();
+                    //SETTING
                     break;
                 case 3:
-                    listener.logout();
+                    //LOGOUT
+                    session.setLogin(false);
+                    db.deleteUsers();
+                    // Launching the login activity
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
                     break;
             }
         }

@@ -5,6 +5,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -116,6 +117,14 @@ public class MySurveyActivity extends AppCompatActivity{
         database.close();
     }
 
+    public void showEmpty(boolean condition){
+        if(condition){
+            empty.setVisibility(View.VISIBLE);
+        }else{
+            empty.setVisibility(View.GONE);
+        }
+    }
+
     private static class MyRecycleAdapter extends RecyclerView.Adapter<MySurveyActivity.MyRecycleAdapter.MyViewHolder>{
 
         private List<Product> products;
@@ -136,15 +145,17 @@ public class MySurveyActivity extends AppCompatActivity{
 
         @Override
         public void onBindViewHolder(final MySurveyActivity.MyRecycleAdapter.MyViewHolder holder, final int position) {
-            Product product = products.get(position);
-            holder.productPhoto.setImageBitmap(BitmapFactory.decodeByteArray(product.getPhoto(),0, product.getPhoto().length));
+            final Product product = products.get(position);
+            byte[] photo = product.getPhoto();
+            Bitmap bmp = BitmapFactory.decodeByteArray(photo,0, photo.length);
+            holder.productPhoto.setImageBitmap(bmp);
             holder.productName.setText(product.getName());
             holder.productCategory.setText(product.getCategory());
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(listener!=null){
-                        listener.onItemClick(position, holder.cardView);
+                        listener.onItemClick(position, holder.cardView, product);
                     }
                 }
             });
@@ -176,7 +187,15 @@ public class MySurveyActivity extends AppCompatActivity{
         }
 
         interface Listener{
-            void onItemClick(int position, ViewGroup root);
+            void onItemClick(int position, ViewGroup root, Product product);
+        }
+
+        public int size(){
+            return products.size();
+        }
+
+        public boolean isEmpty(){
+            return size()==0;
         }
 
     }
@@ -196,7 +215,7 @@ public class MySurveyActivity extends AppCompatActivity{
             while(cursor.moveToNext()){
                 Product product = getProduct(cursor);
                 products.add(product);
-                Log.e("SEVTRIMAMEN", "LOOP : "+product.getName());
+                Log.e("SEVTRIMAMEN", "LOOP PRODUCT: "+product);
             }
             return products;
         }
@@ -218,14 +237,15 @@ public class MySurveyActivity extends AppCompatActivity{
                 MyRecycleAdapter adapter = new MyRecycleAdapter(products, MySurveyActivity.this);
                 adapter.setListener(new MyRecycleAdapter.Listener() {
                     @Override
-                    public void onItemClick(int position, ViewGroup root) {
-                        Toast.makeText(MySurveyActivity.this, "POSITION : "+position, Toast.LENGTH_SHORT).show();
+                    public void onItemClick(int position, ViewGroup root, Product product) {
                         Intent intentSrveyDetail = new Intent(MySurveyActivity.this, ProductDetailActivity.class);
-                        intentSrveyDetail.putExtra(ProductDetailActivity.ID, position);
+                        intentSrveyDetail.putExtra(ProductDetailActivity.PRODUCT, product);
+                        Log.e("SEVTRIMAMEN","MY SURVEY ON PRODUCT = "+product);
                         startActivity(intentSrveyDetail);
                     }
                 });
                 list.setAdapter(adapter);
+                showEmpty(adapter.isEmpty());
                 Log.e("SEVTRIMAMEN","PRODUCT IS NOT NOL, PRODUCT IS GOTTEN");
             }else{
                 Log.e("SEVTRIMAMEN","PRODUCT IS NOL, PRODUCT IS NOT GOTTEN");

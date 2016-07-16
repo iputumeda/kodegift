@@ -131,8 +131,14 @@ public class CashBacksFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         sliderShow.stopAutoCycle();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        sliderShow.startAutoCycle();
     }
 }
