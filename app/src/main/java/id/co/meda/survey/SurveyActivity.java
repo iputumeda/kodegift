@@ -98,9 +98,9 @@ public class SurveyActivity extends AppCompatActivity {
             if(imageBitmap != null) {
                 //konvert Bitmap ke array of bytes
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imageBitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 imageToDatabase = stream.toByteArray();
-                Log.e("SEVTRIMAMEN", "PHOTO IS GOTTEN");
+                Log.e("SEVTRIMAMEN", "PHOTO IS GOTTEN AND NOT NULL = "+(imageToDatabase!=null));
             }else{
                 Log.e("SEVTRIMAMEN", "PHOTO IS NOT GOTTEN");
             }
@@ -124,25 +124,30 @@ public class SurveyActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            SurveyDatabase databaseSurvey = null;
             try {
-                SurveyDatabase databaseSurvey = new SurveyDatabase(SurveyActivity.this);
+                databaseSurvey = new SurveyDatabase(SurveyActivity.this);
                 Product product = new Product(productNameString, productCategoryString, productDescriptionString, imageToDatabase, new Barcode(contents, formatName));
-                databaseSurvey.insertProduct(product);
-                databaseSurvey.close();
-                Log.e("SEVTRIMAMEN", "SURVEY IS SAVED");
+                long index = databaseSurvey.insertProduct(product);
+                Log.e("SEVTRIMAMEN", "SURVEY IS SAVED, INDEX: "+index+", PRODUCT: "+product);
                 return true;
             }catch (SQLiteException e){
                 Log.e("SEVTRIMAMEN", "SURVEY IS NOTSAVED, PESAN: "+e.getMessage());
                 return false;
+            }finally {
+                Log.e("SEVTRIMAMEN", "SURVEY HAS BEEN CLOSED");
+                databaseSurvey.close();
             }
         }
 
         @Override
         protected void onPostExecute(Boolean isSaved) {
-            if(isSaved) {
-                Toast.makeText(SurveyActivity.this, "survey is saved", Toast.LENGTH_SHORT).show();
+            if(isSaved){
+                startActivity(new Intent(SurveyActivity.this, SurveyResultActivity.class));
+                finish();
+            }else{
+                Toast.makeText(SurveyActivity.this, "NOT SAVED", Toast.LENGTH_LONG).show();
             }
-            finish();
         }
     }
 

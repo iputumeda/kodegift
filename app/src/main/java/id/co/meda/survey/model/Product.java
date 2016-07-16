@@ -1,11 +1,12 @@
 package id.co.meda.survey.model;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Created by Faris on 27/04/2016.
  */
-public class Product{
+public class Product implements Serializable {
 
     private String name;
     private String category;
@@ -69,5 +70,17 @@ public class Product{
 
     public void setPoint(int point) {
         this.point = point;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", description='" + description + '\'' +
+                ", photo is null =" + (photo==null) +
+                ", barcode=" + barcode +
+                ", point=" + point +
+                '}';
     }
 }

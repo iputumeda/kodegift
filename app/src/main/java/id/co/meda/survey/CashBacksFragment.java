@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +28,14 @@ public class CashBacksFragment extends Fragment implements View.OnClickListener{
 
     RecyclerView popularProducts;
     TextView seeMore;
+    SliderLayout sliderShow;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View theView = inflater.inflate(R.layout.fragment_cash_backs, container, false);
         popularProducts = (RecyclerView) theView.findViewById(R.id.popular_products);
         seeMore = (TextView) theView.findViewById(R.id.see_more);
+        sliderShow = (SliderLayout) theView.findViewById(R.id.slider);
         populateData();
         return theView;
     }
@@ -47,11 +52,22 @@ public class CashBacksFragment extends Fragment implements View.OnClickListener{
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         popularProducts.setLayoutManager(linearLayoutManager);
+
+        DefaultSliderView defaultSliderView1 = new DefaultSliderView(getContext());
+        defaultSliderView1.image(R.drawable.baby_care);
+        DefaultSliderView defaultSliderView2 = new DefaultSliderView(getContext());
+        defaultSliderView2.image(R.drawable.cash_out_history);
+        DefaultSliderView defaultSliderView3 = new DefaultSliderView(getContext());
+        defaultSliderView3.image(R.drawable.beauty);
+        sliderShow.addSlider(defaultSliderView1);
+        sliderShow.addSlider(defaultSliderView2);
+        sliderShow.addSlider(defaultSliderView3);
     }
 
     private List<Product> getPopularProducts(){
         List<Product> popularProducts = new ArrayList<>();
         //TODO: belum ada data apapun di popular product
+        //DUMMY
         popularProducts.add(new Product("Product A",null,"10ml", null, null));
         popularProducts.add(new Product("Product B",null,"7pcs", null, null));
         popularProducts.add(new Product("Product C",null,"20ml", null, null));
@@ -112,5 +128,17 @@ public class CashBacksFragment extends Fragment implements View.OnClickListener{
         if(v.getId() == R.id.see_more){
             //TODO: menambahkan aksi ketika see more di klik user
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        sliderShow.stopAutoCycle();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        sliderShow.startAutoCycle();
     }
 }

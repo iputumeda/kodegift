@@ -1,8 +1,6 @@
 package id.co.meda.survey;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,7 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,27 +15,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import id.co.meda.survey.constants.Constants;
 import id.co.meda.survey.drawer.NavigationDrawerFragment;
-import id.co.meda.survey.drawer.NavigationDrawerListener;
-import id.co.meda.survey.helper.LocalDBHandler;
-import id.co.meda.survey.helper.SessionManager;
 
 
-public class MainMenuActivity extends AppCompatActivity implements NavigationDrawerListener{
-
-    private LocalDBHandler db;
-    private SessionManager session;
+public class MainMenuActivity extends AppCompatActivity{
 
     ViewPager viewPager;
     TabLayout tabLayout;
@@ -48,7 +34,6 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationDra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         init();
-        populateData();
     }
 
     private void init(){
@@ -74,23 +59,6 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationDra
 
     }
 
-    private void populateData(){
-        // SqLite database handler
-        db = new LocalDBHandler(getApplicationContext());
-        // session manager
-        session = new SessionManager(getApplicationContext());
-
-        if (!session.isLoggedIn()) {
-            logout();
-        }
-
-        // ambildata SQLite
-        HashMap<String, String> user = db.getUserDetails();
-
-        String name = user.get("name");
-        String email = user.get("email");
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_option, menu);
@@ -100,59 +68,6 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationDra
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void survey() {
-        Intent intentSurvey = new Intent(this, SurveyActivity.class);
-        startActivity(intentSurvey);
-    }
-
-    @Override
-    public void mySurvey() {
-        Intent intentMySurvey = new Intent(this, MySurveyActivity.class);
-        startActivity(intentMySurvey);
-    }
-
-    @Override
-    public void myReedemItems() {
-        Intent intentMyVoucher = new Intent(this, MyVoucherActivity.class);
-        startActivity(intentMyVoucher);
-    }
-
-    @Override
-    public void cashOutHistory() {
-
-    }
-
-    @Override
-    public void helpCenter() {
-
-    }
-
-    @Override
-    public void editProfile() {
-        startActivity(new Intent(this, EditProfileActivity.class));
-    }
-
-    @Override
-    public void setting() {
-
-    }
-
-    @Override
-    public void logout() {
-        session.setLogin(false);
-        db.deleteUsers();
-        // Launching the login activity
-        Intent intent = new Intent(MainMenuActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
-    public void cashOut() {
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
