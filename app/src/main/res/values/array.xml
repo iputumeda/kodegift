@@ -24,4 +24,13 @@
         <item>R.drawable.setting</item>
         <item>R.drawable.logout</item>
     </array>
+    <array name="category">
+        <item>Food</item>
+        <item>Beverge</item>
+        <item>Groceries</item>
+        <item>Baby Care</item>
+        <item>Beauty</item>
+        <item>Personal Care</item>
+        <item>Other</item>
+    </array>
 </resources>

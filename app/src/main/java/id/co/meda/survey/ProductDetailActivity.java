@@ -1,10 +1,8 @@
 package id.co.meda.survey;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,12 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.sql.SQLException;
-
+import id.co.meda.survey.utility.Utility;
 import id.co.meda.survey.database.DatabaseHelper;
 import id.co.meda.survey.database.SurveyDatabase;
 import id.co.meda.survey.model.Barcode;
@@ -72,8 +66,10 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
     private void populateData() {
         product = (Product) getIntent().getSerializableExtra(PRODUCT);
-        Log.e("SEVTRIMAMEN","PRODUCT = "+product);
-        productPhoto.setImageBitmap(BitmapFactory.decodeByteArray(product.getPhoto(),0,product.getPhoto().length));
+        Log.e("KODEGIFTDEBUG","PRODUCT = "+product);
+        byte[] photo1 = product.getPhotos().get(0);
+        Bitmap imgBtm1 = BitmapFactory.decodeByteArray(photo1,0,photo1.length);
+        productPhoto.setImageBitmap(imgBtm1);
         productName.setText(product.getName());
         productCategory.setText(product.getCategory());
     }
@@ -90,18 +86,20 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         @Override
         protected Product doInBackground(Integer... params) {
-            Log.e("SEVTRIMAMEN","PRODUCT POSITION IN DO BACKGROUND = "+params[0]);
+            Log.e("KODEGIFTDEBUG","PRODUCT POSITION IN DO BACKGROUND = "+params[0]);
             Cursor data = database.queryProducts(params[0]);
-            Log.e("SEVTRIMAMEN","CURSOR IS NULL IN DO BACKGROUND = "+(cursor==null));
+            Log.e("KODEGIFTDEBUG","CURSOR IS NULL IN DO BACKGROUND = "+(cursor==null));
             Product product = getProduct(data);
-            Log.e("SEVTRIMAMEN","PRODUCT IN DETAIL PRODUCT ACTIVITY = "+product);
+            Log.e("KODEGIFTDEBUG","PRODUCT IN DETAIL PRODUCT ACTIVITY = "+product);
             return null;
         }
 
         @Override
         protected void onPostExecute(Product product) {
             super.onPostExecute(product);
-            productPhoto.setImageBitmap(BitmapFactory.decodeByteArray(product.getPhoto(),0,product.getPhoto().length));
+            byte[] photo1 = product.getPhotos().get(0);
+            Bitmap imgBtm1 = BitmapFactory.decodeByteArray(photo1,0,photo1.length);
+            productPhoto.setImageBitmap(imgBtm1);
             productName.setText(product.getName());
             productCategory.setText(product.getCategory());
         }
@@ -110,10 +108,10 @@ public class ProductDetailActivity extends AppCompatActivity {
             String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.NAME_COLUMN));
             String category = cursor.getString(cursor.getColumnIndex(DatabaseHelper.CATEGORY_COLUMN));
             String description = cursor.getString(cursor.getColumnIndex(DatabaseHelper.DESCRIPTION_COLUMN));
-            byte[] photo = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.PHOTO_COLUMN));
+            byte[] photos = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.PHOTO_COLUMN));
             String contentBarcode = cursor.getString(cursor.getColumnIndex(DatabaseHelper.CONTENTS_BARCODE_COLUMN));
             String formatBarcode = cursor.getString(cursor.getColumnIndex(DatabaseHelper.FORMAT_BARCODE_COLUMN));
-            return new Product(name, category, description, photo, new Barcode(contentBarcode, formatBarcode));
+            return new Product(name, category, description, Utility.getListFromArrayOfByte(photos), new Barcode(contentBarcode, formatBarcode));
         }
 
     }
