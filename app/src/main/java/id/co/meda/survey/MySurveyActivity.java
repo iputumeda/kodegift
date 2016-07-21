@@ -1,7 +1,6 @@
 package id.co.meda.survey;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,22 +18,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import id.co.meda.survey.utility.Utility;
 import id.co.meda.survey.database.DatabaseHelper;
 import id.co.meda.survey.database.SurveyDatabase;
-import id.co.meda.survey.database.VoucherDatabase;
 import id.co.meda.survey.model.Barcode;
 import id.co.meda.survey.model.Product;
 
@@ -53,7 +45,7 @@ public class MySurveyActivity extends AppCompatActivity{
         setContentView(R.layout.activity_my_survey);
         init();
         populateData();
-        Log.e("SEVTRIMAMEN","ONCREATE");
+        Log.e("KODEGIFTDEBUG","ONCREATE");
     }
 
     @Override
@@ -82,11 +74,11 @@ public class MySurveyActivity extends AppCompatActivity{
     private void populateData(){
         SurveyAsyncTask asyncTask = new SurveyAsyncTask();
         asyncTask.execute();
-        Log.e("SEVTRIMAMEN","POPULATE");
+        Log.e("KODEGIFTDEBUG","POPULATE");
     }
 
     private List<Product> getProducts(){
-        Log.e("SEVTRIMAMEN", "GET PRODUCT");
+        Log.e("KODEGIFTDEBUG", "GET PRODUCT");
         List<Product> products = new ArrayList<>();
         SurveyAsyncTask asyncTask = new SurveyAsyncTask();
         asyncTask.execute();
@@ -98,14 +90,14 @@ public class MySurveyActivity extends AppCompatActivity{
                 byte[] photo = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.PHOTO_COLUMN));
                 String contentBarcode = cursor.getString(cursor.getColumnIndex(DatabaseHelper.CONTENTS_BARCODE_COLUMN));
                 String formatBarcode = cursor.getString(cursor.getColumnIndex(DatabaseHelper.FORMAT_BARCODE_COLUMN));
-                Product product = new Product(name, category, description, photo, new Barcode(contentBarcode, formatBarcode));
+                Product product = new Product(name, category, description, Utility.getListFromArrayOfByte(photo), new Barcode(contentBarcode, formatBarcode));
                 products.add(product);
-                Log.e("SEVTRIMAMEN", "LOOP : "+product.getName());
+                Log.e("KODEGIFTDEBUG", "LOOP : "+product.getName());
             }
         }else{
-            Log.e("SEVTRIMAMEN", "1 CURSOR IS NULL");
+            Log.e("KODEGIFTDEBUG", "1 CURSOR IS NULL");
         }
-        Log.e("SEVTRIMAMEN", "SIZE : "+products.size());
+        Log.e("KODEGIFTDEBUG", "SIZE : "+products.size());
         return products;
     }
 
@@ -146,7 +138,7 @@ public class MySurveyActivity extends AppCompatActivity{
         @Override
         public void onBindViewHolder(final MySurveyActivity.MyRecycleAdapter.MyViewHolder holder, final int position) {
             final Product product = products.get(position);
-            byte[] photo = product.getPhoto();
+            byte[] photo = product.getPhotos().get(0);
             Bitmap bmp = BitmapFactory.decodeByteArray(photo,0, photo.length);
             holder.productPhoto.setImageBitmap(bmp);
             holder.productName.setText(product.getName());
@@ -215,7 +207,7 @@ public class MySurveyActivity extends AppCompatActivity{
             while(cursor.moveToNext()){
                 Product product = getProduct(cursor);
                 products.add(product);
-                Log.e("SEVTRIMAMEN", "LOOP PRODUCT: "+product);
+                Log.e("KODEGIFTDEBUG", "LOOP PRODUCT: "+product);
             }
             return products;
         }
@@ -227,7 +219,7 @@ public class MySurveyActivity extends AppCompatActivity{
             byte[] photo = cursor.getBlob(cursor.getColumnIndex(DatabaseHelper.PHOTO_COLUMN));
             String contentBarcode = cursor.getString(cursor.getColumnIndex(DatabaseHelper.CONTENTS_BARCODE_COLUMN));
             String formatBarcode = cursor.getString(cursor.getColumnIndex(DatabaseHelper.FORMAT_BARCODE_COLUMN));
-            return new Product(name, category, description, photo, new Barcode(contentBarcode, formatBarcode));
+            return new Product(name, category, description, Utility.getListFromArrayOfByte(photo), new Barcode(contentBarcode, formatBarcode));
         }
 
         @Override
@@ -240,15 +232,15 @@ public class MySurveyActivity extends AppCompatActivity{
                     public void onItemClick(int position, ViewGroup root, Product product) {
                         Intent intentSrveyDetail = new Intent(MySurveyActivity.this, ProductDetailActivity.class);
                         intentSrveyDetail.putExtra(ProductDetailActivity.PRODUCT, product);
-                        Log.e("SEVTRIMAMEN","MY SURVEY ON PRODUCT = "+product);
+                        Log.e("KODEGIFTDEBUG","MY SURVEY ON PRODUCT = "+product);
                         startActivity(intentSrveyDetail);
                     }
                 });
                 list.setAdapter(adapter);
                 showEmpty(adapter.isEmpty());
-                Log.e("SEVTRIMAMEN","PRODUCT IS NOT NOL, PRODUCT IS GOTTEN");
+                Log.e("KODEGIFTDEBUG","PRODUCT IS NOT NOL, PRODUCT IS GOTTEN");
             }else{
-                Log.e("SEVTRIMAMEN","PRODUCT IS NOL, PRODUCT IS NOT GOTTEN");
+                Log.e("KODEGIFTDEBUG","PRODUCT IS NOL, PRODUCT IS NOT GOTTEN");
             }
         }
     }

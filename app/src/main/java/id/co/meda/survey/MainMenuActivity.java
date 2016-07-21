@@ -20,8 +20,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.co.meda.survey.constants.Constants;
 import id.co.meda.survey.drawer.NavigationDrawerFragment;
+import id.co.meda.survey.utility.Utility;
 
 
 public class MainMenuActivity extends AppCompatActivity{
@@ -80,7 +80,7 @@ public class MainMenuActivity extends AppCompatActivity{
     public void onClickCategoryProduct(View view) {
         Toast.makeText(this,"Category Product : "+view.getTag(),Toast.LENGTH_LONG).show();
         Intent goToCategoryProducts = new Intent(this, CategoryProductsActivity.class);
-        goToCategoryProducts.putExtra(Constants.TAG, view.getTag().toString());
+        goToCategoryProducts.putExtra(Utility.TAG, view.getTag().toString());
         startActivity(goToCategoryProducts);
     }
 

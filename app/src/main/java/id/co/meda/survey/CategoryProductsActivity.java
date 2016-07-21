@@ -17,8 +17,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import id.co.meda.survey.constants.Constants;
 import id.co.meda.survey.model.Product;
+import id.co.meda.survey.utility.Utility;
 
 public class CategoryProductsActivity extends AppCompatActivity {
 
@@ -40,7 +40,7 @@ public class CategoryProductsActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listOfProducts.setLayoutManager(linearLayoutManager);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getIntent().getStringExtra(Constants.TAG));
+        getSupportActionBar().setTitle(getIntent().getStringExtra(Utility.TAG));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }

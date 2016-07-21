@@ -1,7 +1,9 @@
 package id.co.meda.survey.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Faris on 27/04/2016.
@@ -11,17 +13,21 @@ public class Product implements Serializable {
     private String name;
     private String category;
     private String description;
-    private byte[] photo;
+    private List<byte[]> photos;
     private Barcode barcode;
     private int point;
 
-    public Product(String name, String category, String description, byte[] photo, Barcode barcode) {
+    public Product(String name, String category, String description, List<byte[]> photos, Barcode barcode) {
         this.name = name;
         this.category = category;
         this.description = description;
-        this.photo = photo;
+        this.photos = photos;
         this.barcode = barcode;
         this.point = 500;
+    }
+
+    public Product(String name, String category, String description,Barcode barcode) {
+        this(name, category, description, new ArrayList<byte[]>(), barcode);
     }
 
     public String getName() {
@@ -48,12 +54,24 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public byte[] getPhoto() {
-        return photo;
+    public List<byte[]> getPhotos() {
+        return photos;
     }
 
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
+    public void addPhoto(byte[] photo){
+        photos.add(photo);
+    }
+
+    public void removePhoto(int index){
+        photos.remove(index);
+    }
+
+    public void setPhoto(int index, byte[] newPhoto){
+        if(photos.get(index)!= null){
+            photos.add(index, newPhoto);
+        }else{
+            addPhoto(newPhoto);
+        }
     }
 
     public Barcode getBarcode() {
@@ -78,7 +96,7 @@ public class Product implements Serializable {
                 "name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", description='" + description + '\'' +
-                ", photo is null =" + (photo==null) +
+                ", photos =" + photos.toString() +
                 ", barcode=" + barcode +
                 ", point=" + point +
                 '}';
